@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    android:layout_height="match_parent">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+
+    <ImageButton
+        android:layout_marginTop="15dp"
+        android:id="@+id/hamburger"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/hamburger"
+        android:background="@null"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignTop="@id/hamburger"
+        android:layout_toRightOf="@id/hamburger"
+        android:layout_toLeftOf="@id/add"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:hint="   search"/>
+
+    <ImageButton
+        android:id="@+id/add"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/hamburger"
+        android:src="@drawable/ic_baseline_add_circle_24px"
+        android:background="@null"/>
+    
+    <SlidingDrawer
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:handle="@+id/handle"
+        android:content="@+id/content">
+        
+        <ImageView
+            android:id="@id/handle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_baseline_drag_handle_24px"/>
+
+        <GridLayout
+            android:layout_marginTop="100dp"
+            android:id="@id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
+    </SlidingDrawer>
+</RelativeLayout>
