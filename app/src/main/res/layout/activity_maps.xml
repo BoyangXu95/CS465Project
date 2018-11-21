@@ -29,7 +29,7 @@
         android:layout_toLeftOf="@id/add"
         android:background="@android:color/white"
         android:textColor="@android:color/black"
-        android:hint="   search"/>
+        android:hint="   search events/locations"/>
 
     <ImageButton
         android:id="@+id/add"
@@ -44,7 +44,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--This empty TextView holds the place of half screen-->
+        <!--This empty TextView holds the place of part of the screen-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -54,7 +54,7 @@
             android:id="@+id/drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
 
             android:handle="@+id/handle"
             android:content="@+id/content">
@@ -65,12 +65,137 @@
                 android:layout_height="50dp"
                 android:src="@drawable/ic_baseline_drag_handle_24px"/>
 
-            <GridLayout
-                android:layout_marginTop="100dp"
+            <LinearLayout
                 android:id="@id/content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"/>
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:background="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_friends"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:text="Friends going"
+                        android:textColor="@android:color/darker_gray"/>
+
+                    <CheckBox
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="Interested"
+                        android:textColor="@android:color/darker_gray"/>
+
+
+                    <CheckBox
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="Private"
+                        android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Movie"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="FreeFood"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="Gym"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="PlaceHolder"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="PlaceHolder"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="BoardGame"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="Dinner"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="ALargeAndLengthyPlaceHolder"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="PlaceHolder"/>
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="PlaceHolder"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
         </SlidingDrawer>
     </LinearLayout>
 </RelativeLayout>
