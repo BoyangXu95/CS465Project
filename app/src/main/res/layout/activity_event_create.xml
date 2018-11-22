@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:weightSum="1">
         <ImageButton
             android:id="@+id/back"
@@ -38,12 +39,136 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="5dp"
         android:background="@android:color/darker_gray"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"/>
 
+    <ScrollView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:paddingTop="10dp"
+                android:textSize="18sp"
+                android:text="Event Name"/>
+
+            <EditText
+                android:id="@+id/event_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edit_text_border"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:paddingTop="10dp"
+                android:textSize="18sp"
+                android:text="Hashtags"/>
+
+            <EditText
+                android:id="@+id/hashtags"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edit_text_border"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:text="Maximum Size"/>
+
+                <Spinner
+                    android:id="@+id/size_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginEnd="50dp">
+                </Spinner>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:text="Friends Only"/>
+
+                <Switch
+                    android:id="@+id/friends_only"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginEnd="50dp"/>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:paddingTop="10dp"
+                android:textSize="18sp"
+                android:text="Description"/>
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edit_text_border"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/holo_blue_dark"
+                    android:text="Create"
+                    android:textColor="@android:color/white"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
