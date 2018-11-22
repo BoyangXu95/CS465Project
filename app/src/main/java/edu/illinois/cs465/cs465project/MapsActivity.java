@@ -2,6 +2,13 @@ package edu.illinois.cs465.cs465project;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.ImageButton;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import android.content.Intent;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,9 +18,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener{
 
     private GoogleMap mMap;
+    private ImageButton add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        add = (ImageButton) findViewById(R.id.add);
+        add.setOnClickListener(this);
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.add) {
+            Intent intent = new Intent(this, EventCreateActivity.class);
+            startActivity(intent);
+        }
     }
 
 
