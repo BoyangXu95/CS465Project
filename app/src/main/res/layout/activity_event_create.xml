@@ -19,7 +19,6 @@
             android:src="@drawable/ic_baseline_arrow_back_24px"
             android:background="@null"/>
         <TextView
-            android:id="@+id/create"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
@@ -35,6 +34,7 @@
             android:layout_marginStart="5dp"
             android:text="Create"
             android:background="@null"
+            android:id="@+id/create_top_right"
             style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 
