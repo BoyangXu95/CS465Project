@@ -1,7 +1,11 @@
 package edu.illinois.cs465.cs465project;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -24,6 +29,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ImageButton add;
+    List <Marker> friends = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +65,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);  //Set the map type to normal
 
         // Add a marker in teamoji and move the camera
+        Marker friends1, friends2;
         LatLng teamoji = new LatLng(40.110095, -88.229681);
-        mMap.addMarker(new MarkerOptions()
+        friends1 = mMap.addMarker(new MarkerOptions()
                         .position(teamoji)
                         .title("Marker in friends")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        friends.add(friends1);
 
         LatLng grainger = new LatLng(40.112510, -88.226773);
         mMap.addMarker(new MarkerOptions().position(grainger).title("Marker in private"));
@@ -77,20 +87,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .title("Marker in Interest")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
+
+
+
         LatLng under = new LatLng(40.104861, -88.227137);
         mMap.addMarker(new MarkerOptions().position(under).title("Marker in private"));
 
         LatLng bookstore = new LatLng(40.108534, -88.229278);
-        mMap.addMarker(new MarkerOptions()
+        friends2=mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
                         .title("Marker in friends")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
+        friends.add(friends2);
 
         LatLng siebel = new LatLng(40.113908, -88.225008);
         mMap.addMarker(new MarkerOptions().position(siebel).title("Marker in private"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(union));
         mMap.setMinZoomPreference(15.0f);
+    }
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_friends:
+                if (checked){
+                    for(Marker mkr:friends){
+                        mkr.setVisible(false);
+                    }
+                }
+                // Remove the meat
+                break;
+            case R.id.checkbox_interested:
+                if (checked){
+
+                }
+            else //
+                break;
+            // TODO: Veggie sandwich
+        }
     }
 }
