@@ -36,6 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         add = (ImageButton) findViewById(R.id.add);
         add.setOnClickListener(this);
+
     }
 
     public void onClick(View v) {
