@@ -39,6 +39,14 @@
         android:layout_alignTop="@id/hamburger"
         android:src="@drawable/ic_baseline_add_circle_24px"
         android:background="@null"/>
+    <ImageButton
+        android:id="@+id/current_location"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/baseline_my_location_black_24dp"
+        android:background="@null"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
