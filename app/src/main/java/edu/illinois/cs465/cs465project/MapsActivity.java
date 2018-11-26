@@ -2,6 +2,7 @@ package edu.illinois.cs465.cs465project;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.widget.ImageButton;
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ImageButton add;
+    private ImageButton current_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         add = (ImageButton) findViewById(R.id.add);
         add.setOnClickListener(this);
+        current_location = (ImageButton) findViewById(R.id.current_location);
+        current_location.setOnClickListener(this);
     }
 
-    public void onClick(View v) {
-        if (v.getId() == R.id.add) {
-            Intent intent = new Intent(this, EventCreateActivity.class);
-            startActivity(intent);
-        }
-    }
+
 
 
     /**
@@ -63,27 +62,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in teamoji and move the camera
         LatLng teamoji = new LatLng(40.110095, -88.229681);
         mMap.addMarker(new MarkerOptions()
-                        .position(teamoji)
-                        .title("Marker in friends")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .position(teamoji)
+                .title("Marker in friends")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         LatLng grainger = new LatLng(40.112510, -88.226773);
         mMap.addMarker(new MarkerOptions().position(grainger).title("Marker in private"));
 
         LatLng union = new LatLng(40.109432, -88.227126);
         mMap.addMarker(new MarkerOptions()
-                        .position(union)
-                        .title("Marker in Interest")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .position(union)
+                .title("Marker in Interest")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         LatLng under = new LatLng(40.104861, -88.227137);
         mMap.addMarker(new MarkerOptions().position(under).title("Marker in private"));
 
         LatLng bookstore = new LatLng(40.108534, -88.229278);
         mMap.addMarker(new MarkerOptions()
-                        .position(bookstore)
-                        .title("Marker in friends")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .position(bookstore)
+                .title("Marker in friends")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
 
         LatLng siebel = new LatLng(40.113908, -88.225008);
@@ -91,5 +90,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(union));
         mMap.setMinZoomPreference(15.0f);
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.add) {
+            Intent intent = new Intent(this, EventCreateActivity.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.current_location) {
+            LatLng union = new LatLng(40.109432, -88.227126);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(union, 15.0f));
+        }
     }
 }
