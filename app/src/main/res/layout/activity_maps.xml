@@ -93,7 +93,6 @@
                         android:text="Interested"
                         android:textColor="@android:color/darker_gray"/>
 
-
                     <CheckBox
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -127,6 +126,7 @@
                             android:layout_weight="1">
 
                             <Button
+                                android:id="@+id/movie"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Movie"/>
@@ -195,7 +195,6 @@
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
-
         </SlidingDrawer>
     </LinearLayout>
 </RelativeLayout>
