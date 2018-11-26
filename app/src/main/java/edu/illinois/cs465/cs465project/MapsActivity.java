@@ -2,6 +2,8 @@ package edu.illinois.cs465.cs465project;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.widget.ImageButton;
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,6 +26,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ImageButton add;
+    private ImageButton menu;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +40,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         add = (ImageButton) findViewById(R.id.add);
         add.setOnClickListener(this);
+        menu = (ImageButton) findViewById(R.id.hamburger);
+        menu.setOnClickListener(this);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.add) {
             Intent intent = new Intent(this, EventCreateActivity.class);
             startActivity(intent);
+        }
+        if (v.getId() == R.id.hamburger){
+            drawer.openDrawer(Gravity.START);
         }
     }
 
