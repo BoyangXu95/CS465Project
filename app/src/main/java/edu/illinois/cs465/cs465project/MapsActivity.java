@@ -16,6 +16,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener{
@@ -58,9 +60,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);  //Set the map type to normal
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker in teamoji and move the camera
+        LatLng teamoji = new LatLng(40.110095, -88.229681);
+        mMap.addMarker(new MarkerOptions()
+                        .position(teamoji)
+                        .title("Marker in friends")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        LatLng grainger = new LatLng(40.112510, -88.226773);
+        mMap.addMarker(new MarkerOptions().position(grainger).title("Marker in private"));
+
+        LatLng union = new LatLng(40.109432, -88.227126);
+        mMap.addMarker(new MarkerOptions()
+                        .position(union)
+                        .title("Marker in Interest")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+        LatLng under = new LatLng(40.104861, -88.227137);
+        mMap.addMarker(new MarkerOptions().position(under).title("Marker in private"));
+
+        LatLng bookstore = new LatLng(40.108534, -88.229278);
+        mMap.addMarker(new MarkerOptions()
+                        .position(bookstore)
+                        .title("Marker in friends")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+
+        LatLng siebel = new LatLng(40.113908, -88.225008);
+        mMap.addMarker(new MarkerOptions().position(siebel).title("Marker in private"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(union));
+        mMap.setMinZoomPreference(15.0f);
     }
 }
