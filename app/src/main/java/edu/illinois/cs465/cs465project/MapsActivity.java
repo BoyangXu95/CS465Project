@@ -30,8 +30,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ImageButton add;
     List <Marker> friends = new ArrayList<>();
-
-
+    List <Marker> privates = new ArrayList<>();
+    List <Marker> interests = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);  //Set the map type to normal
 
         // Add a marker in teamoji and move the camera
-        Marker friends1, friends2;
+        Marker friends1, friends2, private1,private2, private3, interest1;
         LatLng teamoji = new LatLng(40.110095, -88.229681);
         friends1 = mMap.addMarker(new MarkerOptions()
                         .position(teamoji)
@@ -79,20 +79,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         friends.add(friends1);
 
         LatLng grainger = new LatLng(40.112510, -88.226773);
-        mMap.addMarker(new MarkerOptions().position(grainger).title("Marker in private"));
-
+        private1 = mMap.addMarker(new MarkerOptions().position(grainger).title("Marker in private"));
+        privates.add(private1);
         LatLng union = new LatLng(40.109432, -88.227126);
-        mMap.addMarker(new MarkerOptions()
+        interest1 = mMap.addMarker(new MarkerOptions()
                         .position(union)
                         .title("Marker in Interest")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-
+        interests.add(interest1);
 
 
         LatLng under = new LatLng(40.104861, -88.227137);
-        mMap.addMarker(new MarkerOptions().position(under).title("Marker in private"));
+        private2 = mMap.addMarker(new MarkerOptions().position(under).title("Marker in private"));
 
+        privates.add(private2);
         LatLng bookstore = new LatLng(40.108534, -88.229278);
         friends2=mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
@@ -101,32 +102,69 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         friends.add(friends2);
 
         LatLng siebel = new LatLng(40.113908, -88.225008);
-        mMap.addMarker(new MarkerOptions().position(siebel).title("Marker in private"));
+        private3 = mMap.addMarker(new MarkerOptions().position(siebel).title("Marker in private"));
 
+        privates.add(private3);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(union));
         mMap.setMinZoomPreference(15.0f);
     }
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.checkbox_friends:
                 if (checked){
+                    for(Marker mkr:privates){
+                        mkr.setVisible(false);
+                    }
+                    for(Marker mkr:interests){
+                        mkr.setVisible(false);
+                    }
+                }
+                else {
+                    for(Marker mkr:privates){
+                        mkr.setVisible(true);
+                    }
+                    for(Marker mkr:interests){
+                        mkr.setVisible(true);
+                    }
+                }
+                break;
+            case R.id.checkbox_interested:
+                if (checked){
+                    for(Marker mkr:privates){
+                        mkr.setVisible(false);
+                    }
                     for(Marker mkr:friends){
                         mkr.setVisible(false);
                     }
                 }
-                // Remove the meat
-                break;
-            case R.id.checkbox_interested:
-                if (checked){
-
+                else {
+                    for(Marker mkr:privates){
+                        mkr.setVisible(true);
+                    }
+                    for(Marker mkr:friends){
+                        mkr.setVisible(true);
+                    }
                 }
-            else //
                 break;
-            // TODO: Veggie sandwich
+            case R.id.checkbox_private:
+                if (checked){
+                    for(Marker mkr:interests){
+                        mkr.setVisible(false);
+                    }
+                    for(Marker mkr:friends){
+                        mkr.setVisible(false);
+                    }
+                }
+                else{
+                    for(Marker mkr:interests){
+                        mkr.setVisible(true);
+                    }
+                    for(Marker mkr:friends){
+                        mkr.setVisible(true);
+                    }
+                }
+                break;
         }
     }
 }
