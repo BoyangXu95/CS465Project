@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.widget.ImageButton;
 import android.app.Activity;
 import android.os.Bundle;
@@ -32,6 +34,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     List <Marker> friends = new ArrayList<>();
     List <Marker> privates = new ArrayList<>();
     List <Marker> interests = new ArrayList<>();
+    private ImageButton menu;
+    private DrawerLayout drawer;
+    private ImageButton current_location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,15 +49,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         add = (ImageButton) findViewById(R.id.add);
         add.setOnClickListener(this);
-
+        menu = (ImageButton) findViewById(R.id.hamburger);
+        menu.setOnClickListener(this);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        current_location = (ImageButton) findViewById(R.id.current_location);
+        current_location.setOnClickListener(this);
     }
 
-    public void onClick(View v) {
-        if (v.getId() == R.id.add) {
-            Intent intent = new Intent(this, EventCreateActivity.class);
-            startActivity(intent);
-        }
-    }
+//    public void onClick(View v) {
+//        if (v.getId() == R.id.add) {
+//            Intent intent = new Intent(this, EventCreateActivity.class);
+//            startActivity(intent);
+//        }
+//    }
 
 
     /**
@@ -73,9 +83,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker friends1, friends2, private1,private2, private3, interest1;
         LatLng teamoji = new LatLng(40.110095, -88.229681);
         friends1 = mMap.addMarker(new MarkerOptions()
-                        .position(teamoji)
-                        .title("Marker in friends")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .position(teamoji)
+                .title("Marker in friends")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         friends.add(friends1);
 
         LatLng grainger = new LatLng(40.112510, -88.226773);
@@ -83,9 +93,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         privates.add(private1);
         LatLng union = new LatLng(40.109432, -88.227126);
         interest1 = mMap.addMarker(new MarkerOptions()
-                        .position(union)
-                        .title("Marker in Interest")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .position(union)
+                .title("Marker in Interest")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         interests.add(interest1);
 
@@ -96,9 +106,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         privates.add(private2);
         LatLng bookstore = new LatLng(40.108534, -88.229278);
         friends2=mMap.addMarker(new MarkerOptions()
-                        .position(bookstore)
-                        .title("Marker in friends")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .position(bookstore)
+                .title("Marker in friends")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         friends.add(friends2);
 
         LatLng siebel = new LatLng(40.113908, -88.225008);
@@ -165,6 +175,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
                 break;
+        }
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.add) {
+            Intent intent = new Intent(this, EventCreateActivity.class);
+            startActivity(intent);
+        }
+        else if (v.getId() == R.id.current_location) {
+            LatLng union = new LatLng(40.109432, -88.227126);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(union, 15.0f));
+        }
+        else if (v.getId() == R.id.hamburger){
+            drawer.openDrawer(Gravity.START);
         }
     }
 }
