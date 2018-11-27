@@ -10,5 +10,6 @@
         android:text="This is a sample popup window."
         android:layout_centerInParent="true"
         android:padding="25dp"
+        android:background="@android:color/holo_blue_bright"
         />
 </RelativeLayout>
