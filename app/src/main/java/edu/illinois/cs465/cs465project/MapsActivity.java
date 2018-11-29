@@ -50,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageButton menu;
     private DrawerLayout drawer;
     private ImageButton current_location;
+    private Marker curMarker;
 
     List<Marker> markers = new ArrayList<>();
 
@@ -60,6 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private EventCreateActivity createEvent;
 
     private Button createEventButton;
+    private Button interestedButton;
 
     public void createNewEvent(Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
@@ -103,6 +105,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onMarkerClick(final Marker marker) {
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         Event curEvent = (Event) marker.getTag();
+        curMarker = marker;
 
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
 
@@ -110,6 +113,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
 
         TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+        interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
+        interestedButton.setOnClickListener(this);
+
         text.setText(curEvent.getName());
         container.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -268,6 +274,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         else if (v.getId() == R.id.hamburger){
             drawer.openDrawer(Gravity.START);
+        }
+        else if (v.getId() == R.id.interested_button){
+            Event curEvent = (Event)curMarker.getTag();
+            boolean intereted = (curEvent.isInterested());
+            curEvent.setInteretedEvent(!intereted);
+
+            if (intereted){
+                interests.add(curMarker);
+            } else {
+                interests.remove(curMarker);
+            }
+
         }
 
     }
