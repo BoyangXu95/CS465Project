@@ -70,7 +70,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                 .position(newEventPosition)
                 .title("Marker in friends")
-//                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         );
         newEventMarker.setTag(newEvent);
         markers.add(newEventMarker);
@@ -143,8 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng teamoji = new LatLng(40.110095, -88.229681);
         Marker teamojiM = mMap.addMarker(new MarkerOptions()
                         .position(teamoji)
-//                        .title("Marker in friends")
-//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+
         );
         Event teamojiEvent = new Event("anyone wants boba?");
         teamojiEvent.addHashTag("Movie");
@@ -156,7 +154,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng grainger = new LatLng(40.112510, -88.226773);
         Marker ggM = mMap.addMarker(new MarkerOptions()
                                     .position(grainger)
-//                                    .title("Marker in private")
         );
         Event ggEvent = new Event("CS465 study session");
         ggEvent.addHashTag("FreeFood");
@@ -168,8 +165,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng union = new LatLng(40.109432, -88.227126);
         Marker unionM = mMap.addMarker(new MarkerOptions()
                         .position(union)
-//                        .title("Marker in Interest")
-//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
         );
         Event unionEvent = new Event("CSSA interviews");
         unionEvent.addHashTag("FreeFood");
