@@ -1,5 +1,7 @@
 package edu.illinois.cs465.cs465project;
 
+import com.google.android.gms.maps.model.Marker;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,13 @@ public class Event {
         return hashtags.contains(hashtag);
     }
 
+    public boolean hasHashTags(List<String> inputHashtags) {
+        for (String hashtag : inputHashtags) {
+            if (hasHashTag(hashtag))
+                return true;
+        }
+        return false;
+    }
     public void setDescription(String description) {
         this.description = description;
     }
