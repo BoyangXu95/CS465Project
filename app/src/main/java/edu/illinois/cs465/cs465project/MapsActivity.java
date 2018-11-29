@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.content.Intent;
+import android.widget.ListPopupWindow;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -94,12 +96,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         current_location = (ImageButton) findViewById(R.id.current_location);
         current_location.setOnClickListener(this);
 
+        mylist = (ListView) findViewById(R.id.drawerlist);
+        mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
+                // Toast.LENGTH_SHORT).show();
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.interested_event, null);
+
+                popupWindow = new PopupWindow(container);
+                popupWindow.setWidth(ListPopupWindow.WRAP_CONTENT);
+                popupWindow.setHeight(ListPopupWindow.WRAP_CONTENT);
+                popupWindow.setFocusable(true);
+                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
+
+                // TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.interested);
+            }
+        });
+
+
+
 //        final LayoutInflater factory = getLayoutInflater();
 //
 //        final View createView = factory.inflate(R.layout.activity_event_create, null);
 //
 //        createEventButton = (Button) createView.findViewById(R.id.create_event);
 //        createEventButton.setOnClickListener(this);
+
+
     }
 
 
