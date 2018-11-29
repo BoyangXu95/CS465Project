@@ -219,44 +219,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onCheckboxClicked(View view) {
-//        CheckBox friendsCheckBox = (CheckBox) findViewById(R.id.checkbox_friends);
-//        CheckBox interestsCheckBox = (CheckBox) findViewById(R.id.checkbox_interested);
-//        CheckBox privatesCheckBox = (CheckBox) findViewById(R.id.checkbox_private);
-//
-//        if (!friendsCheckBox.isChecked() && !privatesCheckBox.isChecked() && !interestsCheckBox.isChecked()){
-//            for(Marker mkr:markers) {
-//                mkr.setVisible(true);
-//            }
-//            return;
-//        }
-//
-//        for(Marker mkr:markers) {
-//            mkr.setVisible(false);
-//        }
-//
-//        if (friendsCheckBox.isChecked()){
-//            for(Marker mkr:friends) {
-//                mkr.setVisible(true);
-//            }
-//        }
-//        if (privatesCheckBox.isChecked()){
-//            for(Marker mkr:privates) {
-//                mkr.setVisible(true);
-//            }
-//        }
-//        if (interestsCheckBox.isChecked()){
-//            for(Marker mkr:interests) {
-//                mkr.setVisible(true);
-//            }
-//        }
         filterChanged();
     }
+
     public void onHashTagClicked(View view) {
         Button b = (Button) view;
         String text = b.getText().toString();
-//        CheckBox friendsCheckBox = (CheckBox) findViewById(R.id.checkbox_friends);
-//        CheckBox interestsCheckBox = (CheckBox) findViewById(R.id.checkbox_interested);
-//        CheckBox privatesCheckBox = (CheckBox) findViewById(R.id.checkbox_private);
         if (b.isSelected()) {
             checkedHashtags.remove(text);
             b.setSelected(false);
@@ -267,42 +235,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             b.setBackgroundColor(Color.parseColor("#000000"));
         }
         filterChanged();
-//
-//        if (checkedHashtags.isEmpty()) {
-//            onCheckboxClicked(b);
-//        }
-//
-//        for (Marker mkr : markers) {
-//            mkr.setVisible(false);
-//        }
-//        if (!friendsCheckBox.isChecked() && !privatesCheckBox.isChecked() && !interestsCheckBox.isChecked()) {
-//
-//
-//            for (Marker mkr : markers) {
-//                Event data = (Event) mkr.getTag();
-//                if (data.hasHashTags(checkedHashtags)) {
-//                    mkr.setVisible(true);
-//                }
-//            }
-//            return;
-//        } else {
-//            for (Marker mkr : markers) {
-//                mkr.setVisible(false);
-//            }
-//            if (friendsCheckBox.isChecked()) {
-//
-//
-//            }
-//            if (privatesCheckBox.isChecked()) {
-//
-//            }
-//            if (interestsCheckBox.isChecked()) {
-//
-//            }
-//        }
     }
 
-    public void filterChanged() {
+    private void filterChanged() {
         CheckBox friendsCheckBox = (CheckBox) findViewById(R.id.checkbox_friends);
         CheckBox interestsCheckBox = (CheckBox) findViewById(R.id.checkbox_interested);
         CheckBox privatesCheckBox = (CheckBox) findViewById(R.id.checkbox_private);
