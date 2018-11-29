@@ -2,7 +2,7 @@
 <resources>
     <string-array name="menu">
         <item>\n
-            User_name\n
+            User Name:\n
             MY_NAME\n
             Email:\n
             xxxxxx@xxx.xxx\n</item>
