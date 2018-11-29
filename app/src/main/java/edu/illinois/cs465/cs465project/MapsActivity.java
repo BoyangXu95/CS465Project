@@ -258,42 +258,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     public void onHashTagClicked(View view) {
         Button b = (Button) view;
+        String text = b.getText().toString();
         CheckBox friendsCheckBox = (CheckBox) findViewById(R.id.checkbox_friends);
         CheckBox interestsCheckBox = (CheckBox) findViewById(R.id.checkbox_interested);
         CheckBox privatesCheckBox = (CheckBox) findViewById(R.id.checkbox_private);
         if (!friendsCheckBox.isChecked() && !privatesCheckBox.isChecked() && !interestsCheckBox.isChecked()) {
-            hashTagHelper(b);
+            if (b.isSelected()) {
+                for (Marker mkr : markers) {
+                    mkr.setVisible(true);
+                }
+                b.setSelected(false);
+                return;
+            }
+            for (Marker mkr : markers) {
+                Event data = (Event) mkr.getTag();
+                if (!data.hasHashTag(text)) {
+                    mkr.setVisible(false);
+                    b.setSelected(true);
+                }
+            }
             return;
         } else {
-            for(Marker mkr:markers) {
+            for (Marker mkr : markers) {
                 mkr.setVisible(false);
             }
             if (friendsCheckBox.isChecked()) {
 
 
             }
-            if (privatesCheckBox.isChecked()){
+            if (privatesCheckBox.isChecked()) {
 
             }
-            if (interestsCheckBox.isChecked()){
+            if (interestsCheckBox.isChecked()) {
 
-            }
-        }
-    }
-    public void hashTagHelper(Button b){
-        String text = b.getText().toString();
-        if (b.isSelected()) {
-            for (Marker mkr : markers) {
-                mkr.setVisible(true);
-            }
-            b.setSelected(false);
-            return;
-        }
-        for (Marker mkr : markers) {
-            Event data = (Event) mkr.getTag();
-            if (!data.hasHashTag(text)) {
-                mkr.setVisible(false);
-                b.setSelected(true);
             }
         }
     }
