@@ -7,36 +7,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@android:color/white"
+        android:background="#AA000000"
         >
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/interested_button"
-            android:text="like it!"
-            android:textSize="10dp"/>
+            android:text="Like"
+            android:textSize="10dp"
+            android:layout_gravity="right"/>
         <TextView
             android:id="@+id/popup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Event Name"
             android:layout_centerInParent="true"
+            android:textColor="#DDDDDD"
             android:padding="5dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="X people"
+            android:textColor="#DDDDDD"
             android:padding="5dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#hashtagA   #hashtagB"
+            android:textColor="#DDDDDD"
             android:padding="5dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Started at 5:00 PM"
+            android:textColor="#DDDDDD"
             android:padding="5dp"/>
     </LinearLayout>
 </ScrollView>
