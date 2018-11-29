@@ -218,8 +218,11 @@
 </RelativeLayout>
     <ListView
         android:id="@+id/drawerlist"
+        android:clickable="true"
+        android:focusable="true"
         android:background="#00a77f"
         android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:layout_gravity="left" />
+        android:layout_gravity="left"
+        android:entries="@array/menu" />
 </android.support.v4.widget.DrawerLayout>

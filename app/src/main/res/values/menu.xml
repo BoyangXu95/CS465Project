@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menu">
+        <item>\n
+            User Name:\n
+            MY_NAME\n
+            Email:\n
+            xxxxxx@xxx.xxx\n</item>
+        <item>My Events</item>
+        <item>Interested Events</item>
+        <item>Friends</item>
+    </string-array>
+</resources>
