@@ -147,31 +147,36 @@
                                 android:id="@+id/movie"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Movie"/>
+                                android:text="Movie"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="FreeFood"/>
+                                android:text="FreeFood"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="Gym"/>
+                                android:text="Gym"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"/>
+                                android:text="PlaceHolder"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"/>
+                                android:text="PlaceHolder"
+                                android:onClick="onHashTagClicked"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -184,31 +189,36 @@
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="BoardGame"/>
+                                android:text="BoardGame"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="Dinner"/>
+                                android:text="Dinner"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="ALargeAndLengthyPlaceHolder"/>
+                                android:text="ALargeAndLengthyPlaceHolder"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"/>
+                                android:text="PlaceHolder"
+                                android:onClick="onHashTagClicked"/>
 
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"/>
+                                android:text="PlaceHolder"
+                                android:onClick="onHashTagClicked"/>
                         </LinearLayout>
                     </LinearLayout>
                 </HorizontalScrollView>

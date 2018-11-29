@@ -144,7 +144,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);  //Set the map type to normal
 
         // Add a marker in teamoji and move the camera
-        Marker friends1, friends2, private1,private2, private3, interest1;
         LatLng teamoji = new LatLng(40.110095, -88.229681);
         Marker teamojiM = mMap.addMarker(new MarkerOptions()
                         .position(teamoji)
@@ -152,6 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         );
         Event teamojiEvent = new Event("anyone wants boba?");
+        teamojiEvent.addHashTag("Movie");
         teamojiEvent.setFriendsGoing(true);
         teamojiM.setTag(teamojiEvent);
         markers.add(teamojiM);
@@ -163,6 +163,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                                    .title("Marker in private")
         );
         Event ggEvent = new Event("CS465 study session");
+        ggEvent.addHashTag("FreeFood");
         ggEvent.setPrivateEvent(true);
         ggM.setTag(ggEvent);
         markers.add(ggM);
@@ -175,6 +176,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
         );
         Event unionEvent = new Event("CSSA interviews");
+        unionEvent.addHashTag("FreeFood");
         unionEvent.setInteretedEvent(true);
         unionM.setTag(unionEvent);
         markers.add(unionM);
@@ -183,9 +185,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng ugl = new LatLng(40.104861, -88.227137);
         Marker uglM = mMap.addMarker(new MarkerOptions()
                                     .position(ugl)
-//                                    .title("Marker in private")
         );
         Event uglEvent = new Event("someone makes me focus plz");
+        uglEvent.addHashTag("BoardGame");
         uglEvent.setPrivateEvent(true);
         uglM.setTag(uglEvent);
         markers.add(uglM);
@@ -194,10 +196,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng bookstore = new LatLng(40.108534, -88.229278);
         Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
-//                        .title("Marker in friends")
-//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         );
         Event bookstoreEvent = new Event("starbucks~");
+        bookstoreEvent.addHashTag("BoardGame");
         bookstoreEvent.setFriendsGoing(true);
         bookstoreM.setTag(bookstoreEvent);
         markers.add(bookstoreM);
@@ -209,6 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                                        .title("Marker in private")
         );
         Event siebelEvent = new Event("CS461 we need help with mp4");
+        siebelEvent.addHashTag("Dinner");
         siebelEvent.setPrivateEvent(true);
         siebelM.setTag(siebelEvent);
         markers.add(siebelM);
@@ -254,7 +256,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
+    public void onHashTagClicked(View view) {
+        Button b = (Button) view;
+        CheckBox friendsCheckBox = (CheckBox) findViewById(R.id.checkbox_friends);
+        CheckBox interestsCheckBox = (CheckBox) findViewById(R.id.checkbox_interested);
+        CheckBox privatesCheckBox = (CheckBox) findViewById(R.id.checkbox_private);
+        if (!friendsCheckBox.isChecked() && !privatesCheckBox.isChecked() && !interestsCheckBox.isChecked()) {
+            hashTagHelper(b);
+            return;
+        } else {
+            for(Marker mkr:markers) {
+                mkr.setVisible(false);
+            }
+            if (friendsCheckBox.isChecked()) {
 
+
+            }
+            if (privatesCheckBox.isChecked()){
+
+            }
+            if (interestsCheckBox.isChecked()){
+
+            }
+        }
+    }
+    public void hashTagHelper(Button b){
+        String text = b.getText().toString();
+        if (b.isSelected()) {
+            for (Marker mkr : markers) {
+                mkr.setVisible(true);
+            }
+            b.setSelected(false);
+            return;
+        }
+        for (Marker mkr : markers) {
+            Event data = (Event) mkr.getTag();
+            if (!data.hasHashTag(text)) {
+                mkr.setVisible(false);
+                b.setSelected(true);
+            }
+        }
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
