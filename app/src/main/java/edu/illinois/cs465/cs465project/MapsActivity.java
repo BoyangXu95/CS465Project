@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private EventCreateActivity createEvent;
 
     private Button createEventButton;
+    private ListView mylist;
 
     public void createNewEvent(Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
@@ -90,6 +93,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         current_location = (ImageButton) findViewById(R.id.current_location);
         current_location.setOnClickListener(this);
+
+        mylist = (ListView) findViewById(R.id.drawerlist);
+        mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
+                        // Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 //        final LayoutInflater factory = getLayoutInflater();
 //
