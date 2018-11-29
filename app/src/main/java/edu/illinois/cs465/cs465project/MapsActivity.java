@@ -66,7 +66,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                 .position(newEventPosition)
                 .title("Marker in friends")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+//                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        );
         newEventMarker.setTag(newEvent);
         markers.add(newEventMarker);
     }
@@ -142,7 +143,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker teamojiM = mMap.addMarker(new MarkerOptions()
                         .position(teamoji)
                         .title("Marker in friends")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        );
         Event teamojiEvent = new Event("anyone wants boba?");
         teamojiM.setTag(teamojiEvent);
         markers.add(teamojiM);
@@ -159,7 +161,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker unionM = mMap.addMarker(new MarkerOptions()
                         .position(union)
                         .title("Marker in Interest")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+        );
         Event unionEvent = new Event("CSSA interviews");
         unionM.setTag(unionEvent);
         markers.add(unionM);
@@ -176,7 +179,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
                         .title("Marker in friends")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        );
         Event bookstoreEvent = new Event("starbucks~");
         bookstoreM.setTag(bookstoreEvent);
         markers.add(bookstoreM);
@@ -240,8 +244,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     LatLng newEventLocation = new LatLng(40.109000, -88.220000);
                     Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                             .position(newEventLocation)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+//                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                    );
                     Event newEvent = new Event(newEventName);
+                    newEvent.setPrivateEvent(data.getBooleanExtra("private", false));
+                    if (data.getBooleanExtra("private", false))
+                        privates.add(newEventMarker);
                     newEventMarker.setTag(newEvent);
                     markers.add(newEventMarker);
                 }
