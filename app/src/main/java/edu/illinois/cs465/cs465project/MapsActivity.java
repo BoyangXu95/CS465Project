@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -100,7 +101,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
                         // Toast.LENGTH_SHORT).show();
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.interested_event, null);
 
+                popupWindow = new PopupWindow(container);
+                popupWindow.setWidth(ListPopupWindow.WRAP_CONTENT);
+                popupWindow.setHeight(ListPopupWindow.WRAP_CONTENT);
+                popupWindow.setFocusable(true);
+                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
+
+                // TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.interested);
             }
         });
 
