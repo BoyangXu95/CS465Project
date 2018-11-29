@@ -148,17 +148,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng teamoji = new LatLng(40.110095, -88.229681);
         Marker teamojiM = mMap.addMarker(new MarkerOptions()
                         .position(teamoji)
-                        .title("Marker in friends")
+//                        .title("Marker in friends")
 //                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         );
         Event teamojiEvent = new Event("anyone wants boba?");
+        teamojiEvent.setFriendsGoing(true);
         teamojiM.setTag(teamojiEvent);
         markers.add(teamojiM);
         friends.add(teamojiM);
 
         LatLng grainger = new LatLng(40.112510, -88.226773);
-        Marker ggM = mMap.addMarker(new MarkerOptions().position(grainger).title("Marker in private"));
+        Marker ggM = mMap.addMarker(new MarkerOptions()
+                                    .position(grainger)
+//                                    .title("Marker in private")
+        );
         Event ggEvent = new Event("CS465 study session");
+        ggEvent.setPrivateEvent(true);
         ggM.setTag(ggEvent);
         markers.add(ggM);
         privates.add(ggM);
@@ -166,17 +171,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng union = new LatLng(40.109432, -88.227126);
         Marker unionM = mMap.addMarker(new MarkerOptions()
                         .position(union)
-                        .title("Marker in Interest")
+//                        .title("Marker in Interest")
 //                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
         );
         Event unionEvent = new Event("CSSA interviews");
+        unionEvent.setInteretedEvent(true);
         unionM.setTag(unionEvent);
         markers.add(unionM);
         interests.add(unionM);
 
         LatLng ugl = new LatLng(40.104861, -88.227137);
-        Marker uglM = mMap.addMarker(new MarkerOptions().position(ugl).title("Marker in private"));
+        Marker uglM = mMap.addMarker(new MarkerOptions()
+                                    .position(ugl)
+//                                    .title("Marker in private")
+        );
         Event uglEvent = new Event("someone makes me focus plz");
+        uglEvent.setPrivateEvent(true);
         uglM.setTag(uglEvent);
         markers.add(uglM);
         privates.add(uglM);
@@ -184,17 +194,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng bookstore = new LatLng(40.108534, -88.229278);
         Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
-                        .title("Marker in friends")
+//                        .title("Marker in friends")
 //                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         );
         Event bookstoreEvent = new Event("starbucks~");
+        bookstoreEvent.setFriendsGoing(true);
         bookstoreM.setTag(bookstoreEvent);
         markers.add(bookstoreM);
         friends.add(bookstoreM);
 
         LatLng siebel = new LatLng(40.113908, -88.225008);
-        Marker siebelM = mMap.addMarker(new MarkerOptions().position(siebel).title("Marker in private"));
+        Marker siebelM = mMap.addMarker(new MarkerOptions()
+                                        .position(siebel)
+//                                        .title("Marker in private")
+        );
         Event siebelEvent = new Event("CS461 we need help with mp4");
+        siebelEvent.setPrivateEvent(true);
         siebelM.setTag(siebelEvent);
         markers.add(siebelM);
         privates.add(siebelM);
@@ -280,7 +295,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             boolean intereted = (curEvent.isInterested());
             curEvent.setInteretedEvent(!intereted);
 
-            if (intereted){
+            if (curEvent.isInterested()){
                 interests.add(curMarker);
             } else {
                 interests.remove(curMarker);
