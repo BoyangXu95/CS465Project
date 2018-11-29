@@ -3,8 +3,10 @@ package edu.illinois.cs465.cs465project;
 import java.util.List;
 import java.util.ArrayList;
 
+import android.content.res.Resources;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.CheckBox;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -55,6 +57,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LayoutInflater layoutInflater;
     private RelativeLayout relativeLayout;
 
+    private EventCreateActivity createEvent;
+
+    private Button createEventButton;
+
+    public void createNewEvent(Event newEvent) {
+        LatLng newEventPosition = new LatLng(40.110090, -88.229600);
+        Marker newEventMarker = mMap.addMarker(new MarkerOptions()
+                .position(newEventPosition)
+                .title("Marker in friends")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        newEventMarker.setTag(newEvent);
+        markers.add(newEventMarker);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +85,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         add.setOnClickListener(this);
         menu = (ImageButton) findViewById(R.id.hamburger);
         menu.setOnClickListener(this);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         current_location = (ImageButton) findViewById(R.id.current_location);
         current_location.setOnClickListener(this);
+
+//        final LayoutInflater factory = getLayoutInflater();
+//
+//        final View createView = factory.inflate(R.layout.activity_event_create, null);
+//
+//        createEventButton = (Button) createView.findViewById(R.id.create_event);
+//        createEventButton.setOnClickListener(this);
     }
 
 
@@ -82,8 +105,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
 
-        popupWindow = new PopupWindow(container, 400, 400, true);
-        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 500, 500);
+        popupWindow = new PopupWindow(container, 400, 1000, true);
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
 
         TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
         text.setText(curEvent.getName());
@@ -120,14 +143,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(teamoji)
                         .title("Marker in friends")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        Event teamojiEvent = new Event("teamoji");
+        Event teamojiEvent = new Event("anyone wants boba?");
         teamojiM.setTag(teamojiEvent);
         markers.add(teamojiM);
         friends.add(teamojiM);
 
         LatLng grainger = new LatLng(40.112510, -88.226773);
         Marker ggM = mMap.addMarker(new MarkerOptions().position(grainger).title("Marker in private"));
-        Event ggEvent = new Event("gg");
+        Event ggEvent = new Event("CS465 study session");
         ggM.setTag(ggEvent);
         markers.add(ggM);
         privates.add(ggM);
@@ -137,14 +160,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(union)
                         .title("Marker in Interest")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        Event unionEvent = new Event("union");
+        Event unionEvent = new Event("CSSA interviews");
         unionM.setTag(unionEvent);
         markers.add(unionM);
         interests.add(unionM);
 
         LatLng ugl = new LatLng(40.104861, -88.227137);
         Marker uglM = mMap.addMarker(new MarkerOptions().position(ugl).title("Marker in private"));
-        Event uglEvent = new Event("ugl");
+        Event uglEvent = new Event("someone makes me focus plz");
         uglM.setTag(uglEvent);
         markers.add(uglM);
         privates.add(uglM);
@@ -154,14 +177,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(bookstore)
                         .title("Marker in friends")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        Event bookstoreEvent = new Event("bookstore");
+        Event bookstoreEvent = new Event("starbucks~");
         bookstoreM.setTag(bookstoreEvent);
         markers.add(bookstoreM);
         friends.add(bookstoreM);
 
         LatLng siebel = new LatLng(40.113908, -88.225008);
         Marker siebelM = mMap.addMarker(new MarkerOptions().position(siebel).title("Marker in private"));
-        Event siebelEvent = new Event("siebel");
+        Event siebelEvent = new Event("CS461 we need help with mp4");
         siebelM.setTag(siebelEvent);
         markers.add(siebelM);
         privates.add(siebelM);
@@ -171,99 +194,65 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(union));
         mMap.setMinZoomPreference(15.0f);
     }
+
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
-//        switch(view.getId()) {
-//            case R.id.checkbox_friends:
-//                if (checked){
-//                    for(Marker mkr:friends){
-//                        mkr.setVisible(true);
-//                    }
-//                }
-//                else {
-//                    for(Marker mkr:friends){
-//                        mkr.setVisible(false);
-//                    }
-//                }
-//                break;
-//            case R.id.checkbox_interested:
-//                if (checked){
-//                    for(Marker mkr:interests){
-//                        mkr.setVisible(true);
-//                    }
-//                }
-//                else {
-//                    for(Marker mkr:interests){
-//                        mkr.setVisible(false);
-//                    }
-//                }
-//                break;
-//            case R.id.checkbox_private:
-//                if (checked){
-//                    for(Marker mkr:privates){
-//                        mkr.setVisible(true);
-//                    }
-//                }
-//                else{
-//                    for(Marker mkr:privates){
-//                        mkr.setVisible(false);
-//                    }
-//                }
-//                break;
-//        }
 
         CheckBox friendsCheckBox = (CheckBox) findViewById(R.id.checkbox_friends);
         CheckBox interestsCheckBox = (CheckBox) findViewById(R.id.checkbox_interested);
         CheckBox privatesCheckBox = (CheckBox) findViewById(R.id.checkbox_private);
 
         if (!friendsCheckBox.isChecked() && !privatesCheckBox.isChecked() && !interestsCheckBox.isChecked()){
-            for(Marker mkr:friends) {
-                mkr.setVisible(true);
-            }
-            for(Marker mkr:interests) {
-                mkr.setVisible(true);
-            }
-            for(Marker mkr:privates) {
+            for(Marker mkr:markers) {
                 mkr.setVisible(true);
             }
             return;
+        }
+
+        for(Marker mkr:markers) {
+            mkr.setVisible(false);
         }
 
         if (friendsCheckBox.isChecked()){
             for(Marker mkr:friends) {
                 mkr.setVisible(true);
             }
-        } else {
-            for(Marker mkr:friends) {
-                mkr.setVisible(false);
-            }
         }
         if (privatesCheckBox.isChecked()){
             for(Marker mkr:privates) {
                 mkr.setVisible(true);
-            }
-        } else {
-            for(Marker mkr:privates) {
-                mkr.setVisible(false);
             }
         }
         if (interestsCheckBox.isChecked()){
             for(Marker mkr:interests) {
                 mkr.setVisible(true);
             }
-        } else {
-            for(Marker mkr:interests) {
-                mkr.setVisible(false);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (0) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    String newEventName = data.getStringExtra("name");
+                    LatLng newEventLocation = new LatLng(40.109000, -88.220000);
+                    Marker newEventMarker = mMap.addMarker(new MarkerOptions()
+                            .position(newEventLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    Event newEvent = new Event(newEventName);
+                    newEventMarker.setTag(newEvent);
+                    markers.add(newEventMarker);
+                }
             }
         }
-
-
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.add) {
             Intent intent = new Intent(this, EventCreateActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
         }
         else if (v.getId() == R.id.current_location) {
             LatLng union = new LatLng(40.109432, -88.227126);
@@ -272,6 +261,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else if (v.getId() == R.id.hamburger){
             drawer.openDrawer(Gravity.START);
         }
+
     }
 
 }
