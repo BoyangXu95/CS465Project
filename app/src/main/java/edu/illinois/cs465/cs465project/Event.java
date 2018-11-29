@@ -47,10 +47,15 @@ public class Event {
         }
     }
     public boolean hasHashTag(String hashtag) {
-        return hashtags.contains(hashtag);
+        for (String curHashTag : hashtags)
+            if (curHashTag.equals(hashtag))
+                return true;
+        return false;
     }
 
     public boolean hasHashTags(List<String> inputHashtags) {
+        if (inputHashtags.isEmpty())
+            return true;
         for (String hashtag : inputHashtags) {
             if (hasHashTag(hashtag))
                 return true;

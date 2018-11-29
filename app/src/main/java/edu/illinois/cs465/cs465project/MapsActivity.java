@@ -228,11 +228,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (b.isSelected()) {
             checkedHashtags.remove(text);
             b.setSelected(false);
-            b.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            b.setTextColor(Color.parseColor("#000000"));
         } else {
             checkedHashtags.add(text);
             b.setSelected(true);
-            b.setBackgroundColor(Color.parseColor("#000000"));
+            b.setTextColor(Color.parseColor("#FF0000"));
         }
         filterChanged();
     }
@@ -337,7 +337,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } else {
                 interests.remove(curMarker);
             }
-
+            filterChanged();
         }
 
     }
