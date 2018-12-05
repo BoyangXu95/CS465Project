@@ -49,5 +49,6 @@
         </activity>
         <activity android:name=".EventCreateActivity" />
     </application>
+    
 
 </manifest>

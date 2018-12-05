@@ -3,6 +3,7 @@ package edu.illinois.cs465.cs465project;
 import java.util.List;
 import java.util.ArrayList;
 
+import android.app.SearchManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
@@ -65,6 +67,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button createEventButton;
     private Button interestedButton;
 
+    private RelativeLayout relative;
+    private SearchView searchView;
+
     public void createNewEvent(Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
         Marker newEventMarker = mMap.addMarker(new MarkerOptions()
@@ -94,6 +99,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         current_location = (ImageButton) findViewById(R.id.current_location);
         current_location.setOnClickListener(this);
 
+        searchView = (SearchView) findViewById(R.id.search);
+        searchView.setQueryHint("Search nearby events");
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchEvent(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // TODO
+                return false;
+            }
+        });
     }
 
 
@@ -144,7 +170,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(teamoji)
 
         );
-        Event teamojiEvent = new Event("anyone wants boba?");
+        Event teamojiEvent = new Event("test");
         teamojiEvent.addHashTag("Movie");
         teamojiEvent.setFriendsGoing(true);
         teamojiM.setTag(teamojiEvent);
@@ -334,7 +360,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             filterChanged();
         }
-
     }
 
+    public void searchEvent(String query){
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
+        final PopupWindow popupWindow = new PopupWindow(container, 400, 1000, true);
+        TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+
+        for (int i = 0; i < markers.size(); i++){
+            if (((Event) markers.get(i).getTag()).getName().equals(query)){
+                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
+                text.setText(query);
+                container.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+                return;
+            }
+        }
+        Toast.makeText(getBaseContext(), "No match! Create One?", Toast.LENGTH_LONG).show();
+
+    }
 }

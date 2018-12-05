@@ -26,16 +26,14 @@
         android:background="@null"
         />
 
-    <EditText
+    <SearchView
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignTop="@id/hamburger"
         android:layout_toRightOf="@id/hamburger"
         android:layout_toLeftOf="@id/add"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black"
-        android:hint="   search events/locations"/>
-
+        android:background="@android:color/white"/>
     <ImageButton
         android:id="@+id/add"
         android:layout_width="45dp"
