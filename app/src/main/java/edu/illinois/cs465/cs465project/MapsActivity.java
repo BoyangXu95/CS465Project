@@ -329,6 +329,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     newEvent.setPrivateEvent(data.getBooleanExtra("private", false));
                     if (data.getBooleanExtra("private", false))
                         privates.add(newEventMarker);
+                    // hard coded username
+                    newEvent.setOwner("tester");
                     newEventMarker.setTag(newEvent);
                     markers.add(newEventMarker);
                 }

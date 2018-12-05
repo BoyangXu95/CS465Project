@@ -16,8 +16,9 @@ public class Event {
     private String description;
     private int startingHour;
     private int startingMinute;
+    private String owner;
 
-    Event(String name, int numberOfPeople, int category, String description, int startingHour, int startingMinute){
+    Event(String name, int numberOfPeople, int category, String description, int startingHour, int startingMinute, String owner){
         this.name = name;
         this.numberOfPeople = numberOfPeople;
         this.interetedEvent = false;
@@ -26,6 +27,7 @@ public class Event {
         this.description = description;
         this.startingHour = startingHour;
         this.startingMinute = startingMinute;
+        this.owner = owner;
     }
 
     Event(String name){
@@ -33,6 +35,7 @@ public class Event {
         this.interetedEvent = false;
         this.friendsGoing = false;
         this.privateEvent = false;
+        this.owner = "UNKNOWN";
     }
 
     public String getName(){return this.name;}
@@ -67,5 +70,11 @@ public class Event {
     }
 
     public boolean isInterested(){ return this.interetedEvent; }
+
+    public boolean isMine(String user) {
+        return user.equals(this.owner);
+    }
+
+    public void setOwner(String user) { this.owner = user; }
 
 }
