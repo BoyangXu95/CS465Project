@@ -130,14 +130,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
 
-        popupWindow = new PopupWindow(container, 400, 1000, true);
+        popupWindow = new PopupWindow(container, 1000, 1000, true);
         popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
 
-        TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+        TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+        TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
+        TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
+        TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
 
-        text.setText(curEvent.getName());
+        eventName.setText(curEvent.getName());
+        eventPeople.setText(curEvent.getNumberOfPeople()+" people");
+        eventDescription.setText(curEvent.getDescription());
+        List<String> curHashTags = curEvent.getHashtags();
+        String hashtags="";
+        for(int i = 0; i <curHashTags.size(); i++){
+            String temp = "#";
+            temp = temp + curHashTags.get(i)+" ";
+            hashtags+=temp;
+        }
+        eventHashtags.setText(hashtags);
         container.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -170,7 +183,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(teamoji)
 
         );
-        Event teamojiEvent = new Event("test");
+        Event teamojiEvent = new Event("Chatting");
+        teamojiEvent.setDescription("Just Chilling, it's at second floor of teamoji");
+        teamojiEvent.setNumberOfPeople(3);
         teamojiEvent.addHashTag("Movie");
         teamojiEvent.setFriendsGoing(true);
         teamojiEvent.setLocation(teamoji);
@@ -184,8 +199,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         );
         Event ggEvent = new Event("CS465 study session");
         ggEvent.addHashTag("FreeFood");
+        ggEvent.addHashTag("Study");
+        ggEvent.setNumberOfPeople(10);
         ggEvent.setPrivateEvent(true);
         ggEvent.setLocation(grainger);
+        ggEvent.setDescription("Study for CS465 final exam, fourth floor");
+
         ggM.setTag(ggEvent);
         markers.add(ggM);
         privates.add(ggM);
@@ -196,8 +215,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         );
         Event unionEvent = new Event("CSSA interviews");
         unionEvent.addHashTag("FreeFood");
+        unionEvent.addHashTag("professional");
+        unionEvent.setNumberOfPeople(50);
         unionEvent.setInteretedEvent(true);
         unionEvent.setLocation(union);
+        unionEvent.setDescription("Interviews, It is at basement of union");
         unionM.setTag(unionEvent);
         markers.add(unionM);
         interests.add(unionM);
@@ -206,8 +228,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker uglM = mMap.addMarker(new MarkerOptions()
                                     .position(ugl)
         );
-        Event uglEvent = new Event("someone makes me focus plz");
+        Event uglEvent = new Event("Review for final&Chilling");
         uglEvent.addHashTag("BoardGame");
+        uglEvent.addHashTag("Review");
+        uglEvent.setNumberOfPeople(4);
         uglEvent.setPrivateEvent(true);
         uglEvent.setLocation(ugl);
         uglM.setTag(uglEvent);
@@ -218,10 +242,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
         );
-        Event bookstoreEvent = new Event("starbucks~");
+        Event bookstoreEvent = new Event("Starbucks");
         bookstoreEvent.addHashTag("BoardGame");
+        bookstoreEvent.addHashTag("Coffee");
+        bookstoreEvent.setNumberOfPeople(8);
         bookstoreEvent.setFriendsGoing(true);
         bookstoreEvent.setLocation(bookstore);
+        bookstoreEvent.setDescription("Drink coffee, It's at the coner of the startbucks");
+
         bookstoreM.setTag(bookstoreEvent);
         markers.add(bookstoreM);
         friends.add(bookstoreM);
@@ -233,6 +261,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         );
         Event siebelEvent = new Event("CS461 we need help with mp4");
         siebelEvent.addHashTag("Dinner");
+        siebelEvent.setNumberOfPeople(3);
+        siebelEvent.setDescription("Do mps, it is at basement of siebel");
         siebelEvent.setPrivateEvent(true);
         siebelEvent.setLocation(siebel);
         siebelM.setTag(siebelEvent);

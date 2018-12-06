@@ -20,7 +20,7 @@ public class Event {
     private String owner;
     private LatLng location;
 
-    Event(String name, int numberOfPeople, int category, String description, int startingHour, int startingMinute, String owner){
+    Event(String name, int numberOfPeople, String description, int startingHour, int startingMinute, String owner){
         this.name = name;
         this.numberOfPeople = numberOfPeople;
         this.interetedEvent = false;
@@ -44,9 +44,12 @@ public class Event {
     public LatLng getLocation() { return this.location; }
 
     public void setLocation(LatLng loc) { this.location = loc; }
-
+    public void setNumberOfPeople(int nums) {this.numberOfPeople = nums;}
     public String getName(){return this.name;}
 
+    public String getDescription(){return this.description;}
+    public String getNumberOfPeople(){return Integer.toString(this.numberOfPeople);}
+    public List<String> getHashtags() {return this.hashtags;}
     public void setFriendsGoing(boolean bool) {this.friendsGoing = bool;}
     public void setInteretedEvent(boolean bool) {this.interetedEvent = bool;}
     public void setPrivateEvent(boolean bool) {this.privateEvent = bool;}
