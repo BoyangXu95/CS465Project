@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Camera;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -38,8 +40,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.zip.Inflater;
 
 
@@ -173,6 +173,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Event teamojiEvent = new Event("test");
         teamojiEvent.addHashTag("Movie");
         teamojiEvent.setFriendsGoing(true);
+        teamojiEvent.setLocation(teamoji);
         teamojiM.setTag(teamojiEvent);
         markers.add(teamojiM);
         friends.add(teamojiM);
@@ -184,6 +185,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Event ggEvent = new Event("CS465 study session");
         ggEvent.addHashTag("FreeFood");
         ggEvent.setPrivateEvent(true);
+        ggEvent.setLocation(grainger);
         ggM.setTag(ggEvent);
         markers.add(ggM);
         privates.add(ggM);
@@ -195,6 +197,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Event unionEvent = new Event("CSSA interviews");
         unionEvent.addHashTag("FreeFood");
         unionEvent.setInteretedEvent(true);
+        unionEvent.setLocation(union);
         unionM.setTag(unionEvent);
         markers.add(unionM);
         interests.add(unionM);
@@ -206,6 +209,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Event uglEvent = new Event("someone makes me focus plz");
         uglEvent.addHashTag("BoardGame");
         uglEvent.setPrivateEvent(true);
+        uglEvent.setLocation(ugl);
         uglM.setTag(uglEvent);
         markers.add(uglM);
         privates.add(uglM);
@@ -217,6 +221,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Event bookstoreEvent = new Event("starbucks~");
         bookstoreEvent.addHashTag("BoardGame");
         bookstoreEvent.setFriendsGoing(true);
+        bookstoreEvent.setLocation(bookstore);
         bookstoreM.setTag(bookstoreEvent);
         markers.add(bookstoreM);
         friends.add(bookstoreM);
@@ -229,6 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Event siebelEvent = new Event("CS461 we need help with mp4");
         siebelEvent.addHashTag("Dinner");
         siebelEvent.setPrivateEvent(true);
+        siebelEvent.setLocation(siebel);
         siebelM.setTag(siebelEvent);
         markers.add(siebelM);
         privates.add(siebelM);
@@ -344,13 +350,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             startActivityForResult(intent, 0);
         }
         else if (v.getId() == R.id.current_location) {
-            LatLng union = new LatLng(40.109432, -88.227126);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(union, 15.0f));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(((Event) markers.get(2).getTag()).getLocation(), 15.0f));
         }
         else if (v.getId() == R.id.hamburger){
             drawer.openDrawer(Gravity.START);
         }
         else if (v.getId() == R.id.interested_button){
+            Context context = getApplicationContext();
+            CharSequence text = "Event liked";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
             Event curEvent = (Event)curMarker.getTag();
             boolean intereted = (curEvent.isInterested());
             curEvent.setInteretedEvent(!intereted);
@@ -369,9 +380,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
         final PopupWindow popupWindow = new PopupWindow(container, 400, 1000, true);
         TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+        int eventIndex = 0;
 
         for (int i = 0; i < markers.size(); i++){
             if (((Event) markers.get(i).getTag()).getName().equals(query)){
+                eventIndex = i;
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
                 popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
                 text.setText(query);
                 container.setOnTouchListener(new View.OnTouchListener() {

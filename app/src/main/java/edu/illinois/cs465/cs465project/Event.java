@@ -1,5 +1,6 @@
 package edu.illinois.cs465.cs465project;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.sql.Time;
@@ -17,6 +18,7 @@ public class Event {
     private int startingHour;
     private int startingMinute;
     private String owner;
+    private LatLng location;
 
     Event(String name, int numberOfPeople, int category, String description, int startingHour, int startingMinute, String owner){
         this.name = name;
@@ -28,6 +30,7 @@ public class Event {
         this.startingHour = startingHour;
         this.startingMinute = startingMinute;
         this.owner = owner;
+        this.location = null;
     }
 
     Event(String name){
@@ -37,6 +40,10 @@ public class Event {
         this.privateEvent = false;
         this.owner = "UNKNOWN";
     }
+
+    public LatLng getLocation() { return this.location; }
+
+    public void setLocation(LatLng loc) { this.location = loc; }
 
     public String getName(){return this.name;}
 
