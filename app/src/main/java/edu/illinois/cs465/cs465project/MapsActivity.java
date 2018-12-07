@@ -140,7 +140,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
         TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
         TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
-        eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()));
+        eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()) + "hours");
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
 
