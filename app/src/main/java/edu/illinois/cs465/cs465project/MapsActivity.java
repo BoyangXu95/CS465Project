@@ -364,6 +364,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                     );
                     Event newEvent = new Event(newEventName);
+
                     newEvent.setPrivateEvent(data.getBooleanExtra("private", false));
                     if (data.getBooleanExtra("private", false))
                         privates.add(newEventMarker);
