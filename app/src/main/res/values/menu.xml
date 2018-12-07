@@ -3,11 +3,11 @@
     <string-array name="menu">
         <item>\n
             User Name:\n
-            MY_NAME\n
+            Captain America\n
             Email:\n
-            xxxxxx@xxx.xxx\n</item>
+            DChaters@illinois.edu\n</item>
         <item>My Events</item>
-        <item>Interested Events</item>
-        <item>Friends</item>
+        <item>Liked Events</item>
+        <item>Friends (0)</item>
     </string-array>
 </resources>

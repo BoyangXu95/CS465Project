@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.lang.Object;
+import java.lang.Math;
 import 	android.os.CountDownTimer;
 
 public class Event {
@@ -21,7 +22,7 @@ public class Event {
     private int durationHour;
     private String owner;
     private LatLng location;
-
+    private Long remainTime;
     Event(String name, int numberOfPeople, String description, int durationHour, String owner){
         this.name = name;
         this.numberOfPeople = numberOfPeople;
@@ -32,6 +33,7 @@ public class Event {
         this.owner = owner;
         this.location = null;
         this.durationHour = durationHour;
+
     }
 
     Event(String name){
@@ -48,7 +50,11 @@ public class Event {
     public void setNumberOfPeople(int nums) {this.numberOfPeople = nums;}
     public String getName(){return this.name;}
     public long getDuriation(){ return this.durationHour;}
-
+    public void setRemainTime(long timeInMillis){this.remainTime = timeInMillis;}
+    public int getRemainTime(){
+        int minutes = (int)TimeUnit.MILLISECONDS.toMinutes(this.remainTime);
+        return minutes;
+    }
     public String getDescription(){return this.description;}
     public String getNumberOfPeople(){return Integer.toString(this.numberOfPeople);}
     public List<String> getHashtags() {return this.hashtags;}

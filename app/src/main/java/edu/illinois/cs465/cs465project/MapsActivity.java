@@ -73,14 +73,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private RelativeLayout relative;
     private SearchView searchView;
 
-    public void createNewEvent(Event newEvent) {
+    public void createNewEvent( final Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
-        Marker newEventMarker = mMap.addMarker(new MarkerOptions()
+        final Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                 .position(newEventPosition)
                 .title("Marker in friends")
         );
         newEventMarker.setTag(newEvent);
+
         markers.add(newEventMarker);
+
     }
 
     @Override
@@ -141,10 +143,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
         TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
         TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
-        if(curEvent.getDuriation() == 1){
-            eventDuration.setText(Long.toString(curEvent.getDuriation()) + " hour");
+        if(curEvent.getRemainTime() == 1){
+            eventDuration.setText(Integer.toString(curEvent.getRemainTime()) + " minute left until event finish!");
         } else {
-            eventDuration.setText(Long.toString(curEvent.getDuriation()) + " hours");
+            eventDuration.setText(Integer.toString(curEvent.getRemainTime()) + " minutes left until event finish!");
         }
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
@@ -206,7 +208,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long teamojiDuration = TimeUnit.HOURS.toMillis(teamojiEvent.getDuriation());
         new CountDownTimer(teamojiDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                teamojiEvent.setRemainTime(millisUntilFinished);
             }
             public void onFinish() {
                 markers.remove(teamojiM);
@@ -242,7 +244,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long ggDuration = TimeUnit.HOURS.toMillis(ggEvent.getDuriation());
         new CountDownTimer(ggDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                ggEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -277,7 +279,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long unionDuration = TimeUnit.HOURS.toMillis(unionEvent.getDuriation());
         new CountDownTimer(unionDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                unionEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -310,7 +312,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long uglDuration = TimeUnit.HOURS.toMillis(uglEvent.getDuriation());
         new CountDownTimer(uglDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                uglEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -329,7 +331,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markers.add(uglM);
         privates.add(uglM);
 
-        LatLng bookstore = new LatLng(40.108534, -88.229278);
+        final LatLng bookstore = new LatLng(40.108534, -88.229278);
         final Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
         );
@@ -344,7 +346,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long bookstoreDuration = TimeUnit.HOURS.toMillis(bookstoreEvent.getDuriation());
         new CountDownTimer(bookstoreDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                bookstoreEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -379,7 +381,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long siebelDuration = TimeUnit.HOURS.toMillis(siebelEvent.getDuriation());
         new CountDownTimer(siebelDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                siebelEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -397,6 +399,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }.start();
         markers.add(siebelM);
         privates.add(siebelM);
+
 
         mMap.setOnMarkerClickListener(this);
 
@@ -505,11 +508,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // hard coded username
                     newEvent.setLocation(new LatLng(lat, lng));
                     newEventMarker.setTag(newEvent);
+                    long eventDuration = TimeUnit.HOURS.toMillis(newEvent.getDuriation());
 
-                    long newEventDuration = TimeUnit.HOURS.toMillis(newEvent.getDuriation());
-                    new CountDownTimer(newEventDuration, 1000){
+                    new CountDownTimer(eventDuration, 1000){
                         public void onTick(long millisUntilFinished) {
-
+                            newEvent.setRemainTime(millisUntilFinished);
                         }
                         public void onFinish() {
                             markers.remove(newEventMarker);
@@ -522,7 +525,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             newEventMarker.remove();
                         }
                     }.start();
-
                     markers.add(newEventMarker);
 
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
