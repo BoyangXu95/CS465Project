@@ -93,7 +93,7 @@
                         android:id="@+id/checkbox_friends"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6"
+                        android:layout_weight="5"
                         android:text="Friends going"
                         android:textColor="@android:color/darker_gray"
                         android:onClick="onCheckboxClicked"/>
@@ -102,8 +102,8 @@
                         android:id="@+id/checkbox_interested"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:text="Interested"
+                        android:layout_weight="3"
+                        android:text="Liked"
                         android:textColor="@android:color/darker_gray"
                         android:onClick="onCheckboxClicked"/>
 
