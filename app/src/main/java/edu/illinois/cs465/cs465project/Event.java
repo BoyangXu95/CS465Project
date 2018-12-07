@@ -83,6 +83,10 @@ public class Event {
 
     public boolean isInterested(){ return this.interetedEvent; }
 
+    public boolean isPrivateEvent() { return this.privateEvent; }
+
+    public boolean isFriendsGoing() { return this.friendsGoing; }
+
     public boolean isMine(String user) {
         return user.equals(this.owner);
     }

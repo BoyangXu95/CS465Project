@@ -197,7 +197,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(teamoji)
 
         );
-        Event teamojiEvent = new Event("Chatting");
+        final Event teamojiEvent = new Event("Chatting");
         teamojiEvent.setDescription("Just Chilling, it's at second floor of teamoji");
         teamojiEvent.setNumberOfPeople(3);
         teamojiEvent.addHashTag("Movie");
@@ -208,11 +208,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onTick(long millisUntilFinished) {
 
             }
-
             public void onFinish() {
+                markers.remove(teamojiM);
+                if(teamojiEvent.isInterested())
+                    interests.remove(teamojiM);
+                if(teamojiEvent.isFriendsGoing())
+                    friends.remove(teamojiM);
+                if(teamojiEvent.isPrivateEvent())
+                    privates.remove(teamojiM);
                 teamojiM.remove();
             }
-
         }.start();
         teamojiEvent.setLocation(teamoji);
         teamojiM.setTag(teamojiEvent);
@@ -226,7 +231,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Marker ggM = mMap.addMarker(new MarkerOptions()
                                     .position(grainger)
         );
-        Event ggEvent = new Event("CS465 study session");
+        final Event ggEvent = new Event("CS465 study session");
         ggEvent.addHashTag("FreeFood");
         ggEvent.addHashTag("Study");
         ggEvent.setNumberOfPeople(10);
@@ -241,6 +246,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             public void onFinish() {
+                markers.remove(ggM);
+                if(ggEvent.isInterested())
+                    interests.remove(ggM);
+                if(ggEvent.isFriendsGoing())
+                    friends.remove(ggM);
+                if(ggEvent.isPrivateEvent())
+                    privates.remove(ggM);
                 ggM.remove();
             }
 
@@ -253,7 +265,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Marker unionM = mMap.addMarker(new MarkerOptions()
                         .position(union)
         );
-        Event unionEvent = new Event("CSSA interviews");
+        final Event unionEvent = new Event("CSSA interviews");
         unionEvent.addHashTag("FreeFood");
         unionEvent.addHashTag("professional");
         unionEvent.setNumberOfPeople(50);
@@ -269,6 +281,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             public void onFinish() {
+                markers.remove(unionM);
+                if(unionEvent.isInterested())
+                    interests.remove(unionM);
+                if(unionEvent.isFriendsGoing())
+                    friends.remove(unionM);
+                if(unionEvent.isPrivateEvent())
+                    privates.remove(unionM);
                 unionM.remove();
             }
 
@@ -280,7 +299,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Marker uglM = mMap.addMarker(new MarkerOptions()
                                     .position(ugl)
         );
-        Event uglEvent = new Event("Review for final&Chilling");
+        final Event uglEvent = new Event("Review for final&Chilling");
         uglEvent.addHashTag("BoardGame");
         uglEvent.addHashTag("Review");
         uglEvent.setDescription("Review for finals, at first floor of UGL.");
@@ -295,6 +314,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             public void onFinish() {
+                markers.remove(uglM);
+                if(uglEvent.isInterested())
+                    interests.remove(uglM);
+                if(uglEvent.isFriendsGoing())
+                    friends.remove(uglM);
+                if(uglEvent.isPrivateEvent())
+                    privates.remove(uglM);
                 uglM.remove();
             }
 
@@ -307,7 +333,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
         );
-        Event bookstoreEvent = new Event("Starbucks");
+        final Event bookstoreEvent = new Event("Starbucks");
         bookstoreEvent.addHashTag("BoardGame");
         bookstoreEvent.addHashTag("Coffee");
         bookstoreEvent.setNumberOfPeople(8);
@@ -322,6 +348,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             public void onFinish() {
+                markers.remove(bookstoreM);
+                if(bookstoreEvent.isInterested())
+                    interests.remove(bookstoreM);
+                if(bookstoreEvent.isFriendsGoing())
+                    friends.remove(bookstoreM);
+                if(bookstoreEvent.isPrivateEvent())
+                    privates.remove(bookstoreM);
                 bookstoreM.remove();
             }
 
@@ -335,7 +368,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         .position(siebel)
 //                                        .title("Marker in private")
         );
-        Event siebelEvent = new Event("CS461 mp4");
+        final Event siebelEvent = new Event("CS461 mp4");
         siebelEvent.addHashTag("Dinner");
         siebelEvent.setNumberOfPeople(3);
         siebelEvent.setDescription("Do mps, it is at basement of siebel");
@@ -350,7 +383,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             public void onFinish() {
+                markers.remove(siebelM);
+                if(siebelEvent.isInterested())
+                    interests.remove(siebelM);
+                if(siebelEvent.isFriendsGoing())
+                    friends.remove(siebelM);
+                if(siebelEvent.isPrivateEvent())
+                    privates.remove(siebelM);
                 siebelM.remove();
+
             }
 
         }.start();
@@ -447,14 +488,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     double lat = data.getDoubleExtra("lat",40.109000);
                     double lng = data.getDoubleExtra("lng", -88.220000);
                     LatLng newEventLocation = new LatLng(lat, lng);
-                    Marker newEventMarker = mMap.addMarker(new MarkerOptions()
+                    final Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                             .position(newEventLocation)
                     );
 
 //                    Event newEvent = new Event(newEventName);
 //                    Event(String name, int numberOfPeople, String description, int startingHour, int startingMinute, String owner){
 //
-                    Event newEvent = new Event(newEventName, data.getIntExtra("max Size", 2), data.getStringExtra("description"), data.getIntExtra("duration", 1), "tester");
+                    final Event newEvent = new Event(newEventName, data.getIntExtra("max Size", 2), data.getStringExtra("description"), data.getIntExtra("duration", 1), "tester");
                     String[] hashtags = data.getStringArrayExtra("hashtags");
                     for (int i = 0; i < hashtags.length; i ++)
                         newEvent.addHashTag(hashtags[i]);
@@ -464,6 +505,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // hard coded username
                     newEvent.setLocation(new LatLng(lat, lng));
                     newEventMarker.setTag(newEvent);
+
+                    long newEventDuration = TimeUnit.HOURS.toMillis(newEvent.getDuriation());
+                    new CountDownTimer(newEventDuration, 1000){
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+                        public void onFinish() {
+                            markers.remove(newEventMarker);
+                            if(newEvent.isInterested())
+                                interests.remove(newEventMarker);
+                            if(newEvent.isFriendsGoing())
+                                friends.remove(newEventMarker);
+                            if(newEvent.isPrivateEvent())
+                                privates.remove(newEventMarker);
+                            newEventMarker.remove();
+                        }
+                    }.start();
+
                     markers.add(newEventMarker);
 
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
@@ -523,17 +582,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (((Event) markers.get(i).getTag()).getName().toLowerCase().contains(query.toLowerCase())){
                 eventIndex = i;
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
-////                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
-//                popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
-////                text.setText(query);
-//                container.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//                        popupWindow.dismiss();
-//                        return true;
-//                    }
-//                });
-//                return;
+
                 Event curEvent = (Event) markers.get(i).getTag();
                 popupWindow = new PopupWindow(container, 1000, 1000, true);
                 popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
