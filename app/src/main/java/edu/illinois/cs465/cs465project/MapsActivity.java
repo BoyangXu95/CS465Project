@@ -140,13 +140,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
         TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
         TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
-        eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()) + "hours");
+        if(curEvent.getDuriation() == 1){
+            eventDuration.setText(Long.toString(curEvent.getDuriation()) + " hour");
+        } else {
+            eventDuration.setText(Long.toString(curEvent.getDuriation()) + " hours");
+        }
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
 
         eventName.setText(curEvent.getName());
-        eventPeople.setText("Number of People: "+curEvent.getNumberOfPeople()+" people");
-        eventDescription.setText("Description: "+curEvent.getDescription());
+        eventPeople.setText(curEvent.getNumberOfPeople()+" people");
+        eventDescription.setText(curEvent.getDescription());
         List<String> curHashTags = curEvent.getHashtags();
         String hashtags="";
         for(int i = 0; i <curHashTags.size(); i++){
@@ -154,7 +158,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             temp = temp + curHashTags.get(i)+" ";
             hashtags+=temp;
         }
-        eventHashtags.setText("Hashtags: " + hashtags);
+        eventHashtags.setText(hashtags);
         container.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
