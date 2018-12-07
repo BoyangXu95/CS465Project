@@ -2,7 +2,9 @@ package edu.illinois.cs465.cs465project;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.Object;
 
+import 	android.os.CountDownTimer;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.res.Resources;
@@ -40,6 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
+import java.util.concurrent.TimeUnit;
 import java.util.zip.Inflater;
 
 
@@ -131,18 +134,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
 
         popupWindow = new PopupWindow(container, 1000, 1000, true);
-        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
-
+        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
         TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
         TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
         TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
+        TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
+        eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()));
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
 
         eventName.setText(curEvent.getName());
-        eventPeople.setText(curEvent.getNumberOfPeople()+" people");
-        eventDescription.setText(curEvent.getDescription());
+        eventPeople.setText("Number of People: "+curEvent.getNumberOfPeople()+" people");
+        eventDescription.setText("Description: "+curEvent.getDescription());
         List<String> curHashTags = curEvent.getHashtags();
         String hashtags="";
         for(int i = 0; i <curHashTags.size(); i++){
@@ -150,7 +154,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             temp = temp + curHashTags.get(i)+" ";
             hashtags+=temp;
         }
-        eventHashtags.setText(hashtags);
+        eventHashtags.setText("Hashtags: " + hashtags);
         container.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -172,6 +176,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          * installed Google Play services and returned to the app.
          */
     @Override
+
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
@@ -179,7 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in teamoji and move the camera
         LatLng teamoji = new LatLng(40.110095, -88.229681);
-        Marker teamojiM = mMap.addMarker(new MarkerOptions()
+        final Marker teamojiM = mMap.addMarker(new MarkerOptions()
                         .position(teamoji)
 
         );
@@ -188,13 +193,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         teamojiEvent.setNumberOfPeople(3);
         teamojiEvent.addHashTag("Movie");
         teamojiEvent.setFriendsGoing(true);
+        teamojiEvent.setDuration(1);
+        long teamojiDuration = TimeUnit.HOURS.toMillis(teamojiEvent.getDuriation());
+        new CountDownTimer(teamojiDuration, 1000){
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                teamojiM.remove();
+            }
+
+        }.start();
         teamojiEvent.setLocation(teamoji);
         teamojiM.setTag(teamojiEvent);
+
+
         markers.add(teamojiM);
+
         friends.add(teamojiM);
 
         LatLng grainger = new LatLng(40.112510, -88.226773);
-        Marker ggM = mMap.addMarker(new MarkerOptions()
+        final Marker ggM = mMap.addMarker(new MarkerOptions()
                                     .position(grainger)
         );
         Event ggEvent = new Event("CS465 study session");
@@ -204,13 +224,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ggEvent.setPrivateEvent(true);
         ggEvent.setLocation(grainger);
         ggEvent.setDescription("Study for CS465 final exam, fourth floor");
+        ggEvent.setDuration(2);
+        long ggDuration = TimeUnit.HOURS.toMillis(ggEvent.getDuriation());
+        new CountDownTimer(ggDuration, 1000){
+            public void onTick(long millisUntilFinished) {
 
+            }
+
+            public void onFinish() {
+                ggM.remove();
+            }
+
+        }.start();
         ggM.setTag(ggEvent);
         markers.add(ggM);
         privates.add(ggM);
 
         LatLng union = new LatLng(40.109432, -88.227126);
-        Marker unionM = mMap.addMarker(new MarkerOptions()
+        final Marker unionM = mMap.addMarker(new MarkerOptions()
                         .position(union)
         );
         Event unionEvent = new Event("CSSA interviews");
@@ -221,25 +252,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         unionEvent.setLocation(union);
         unionEvent.setDescription("Interviews, It is at basement of union");
         unionM.setTag(unionEvent);
+        unionEvent.setDuration(2);
+        long unionDuration = TimeUnit.HOURS.toMillis(unionEvent.getDuriation());
+        new CountDownTimer(unionDuration, 1000){
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                unionM.remove();
+            }
+
+        }.start();
         markers.add(unionM);
         interests.add(unionM);
 
         LatLng ugl = new LatLng(40.104861, -88.227137);
-        Marker uglM = mMap.addMarker(new MarkerOptions()
+        final Marker uglM = mMap.addMarker(new MarkerOptions()
                                     .position(ugl)
         );
         Event uglEvent = new Event("Review for final&Chilling");
         uglEvent.addHashTag("BoardGame");
         uglEvent.addHashTag("Review");
+        uglEvent.setDescription("Review for finals, at first floor of UGL.");
         uglEvent.setNumberOfPeople(4);
         uglEvent.setPrivateEvent(true);
         uglEvent.setLocation(ugl);
+        uglEvent.setDuration(4);
+        long uglDuration = TimeUnit.HOURS.toMillis(uglEvent.getDuriation());
+        new CountDownTimer(uglDuration, 1000){
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                uglM.remove();
+            }
+
+        }.start();
         uglM.setTag(uglEvent);
         markers.add(uglM);
         privates.add(uglM);
 
         LatLng bookstore = new LatLng(40.108534, -88.229278);
-        Marker bookstoreM = mMap.addMarker(new MarkerOptions()
+        final Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
         );
         Event bookstoreEvent = new Event("Starbucks");
@@ -249,23 +305,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bookstoreEvent.setFriendsGoing(true);
         bookstoreEvent.setLocation(bookstore);
         bookstoreEvent.setDescription("Drink coffee, It's at the coner of the startbucks");
+        bookstoreEvent.setDuration(3);
+        long bookstoreDuration = TimeUnit.HOURS.toMillis(bookstoreEvent.getDuriation());
+        new CountDownTimer(bookstoreDuration, 1000){
+            public void onTick(long millisUntilFinished) {
 
+            }
+
+            public void onFinish() {
+                bookstoreM.remove();
+            }
+
+        }.start();
         bookstoreM.setTag(bookstoreEvent);
         markers.add(bookstoreM);
         friends.add(bookstoreM);
 
         LatLng siebel = new LatLng(40.113908, -88.225008);
-        Marker siebelM = mMap.addMarker(new MarkerOptions()
+        final Marker siebelM = mMap.addMarker(new MarkerOptions()
                                         .position(siebel)
 //                                        .title("Marker in private")
         );
-        Event siebelEvent = new Event("CS461 we need help with mp4");
+        Event siebelEvent = new Event("CS461 mp4");
         siebelEvent.addHashTag("Dinner");
         siebelEvent.setNumberOfPeople(3);
         siebelEvent.setDescription("Do mps, it is at basement of siebel");
         siebelEvent.setPrivateEvent(true);
         siebelEvent.setLocation(siebel);
         siebelM.setTag(siebelEvent);
+        siebelEvent.setDuration(5);
+        long siebelDuration = TimeUnit.HOURS.toMillis(siebelEvent.getDuriation());
+        new CountDownTimer(siebelDuration, 1000){
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                siebelM.remove();
+            }
+
+        }.start();
         markers.add(siebelM);
         privates.add(siebelM);
 
@@ -432,3 +511,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 }
+
