@@ -6,6 +6,9 @@ import com.google.android.gms.maps.model.Marker;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.lang.Object;
+import 	android.os.CountDownTimer;
 
 public class Event {
     private String name;
@@ -15,8 +18,7 @@ public class Event {
     private boolean interetedEvent;
     private boolean privateEvent;
     private String description;
-    private int startingHour;
-    private int startingMinute;
+    private int durationHour;
     private String owner;
     private LatLng location;
 
@@ -27,8 +29,6 @@ public class Event {
         this.friendsGoing = false;
         this.privateEvent = false;
         this.description = description;
-        this.startingHour = startingHour;
-        this.startingMinute = startingMinute;
         this.owner = owner;
         this.location = null;
     }
@@ -42,10 +42,11 @@ public class Event {
     }
 
     public LatLng getLocation() { return this.location; }
-
+    public void setDuration(int hour){this.durationHour = hour;}
     public void setLocation(LatLng loc) { this.location = loc; }
     public void setNumberOfPeople(int nums) {this.numberOfPeople = nums;}
     public String getName(){return this.name;}
+    public long getDuriation(){ return this.durationHour;}
 
     public String getDescription(){return this.description;}
     public String getNumberOfPeople(){return Integer.toString(this.numberOfPeople);}
