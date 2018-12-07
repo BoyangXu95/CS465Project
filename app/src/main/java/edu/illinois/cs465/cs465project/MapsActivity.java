@@ -73,25 +73,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private RelativeLayout relative;
     private SearchView searchView;
 
-    public void createNewEvent(final Event newEvent) {
+    public void createNewEvent( final Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
         final Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                 .position(newEventPosition)
                 .title("Marker in friends")
         );
         newEventMarker.setTag(newEvent);
-        long eventDuration = TimeUnit.HOURS.toMillis(newEvent.getDuriation());
 
-        new CountDownTimer(eventDuration, 1000){
-            public void onTick(long millisUntilFinished) {
-                newEvent.setRemainTime(millisUntilFinished);
-            }
-            public void onFinish() {
-                newEventMarker.remove();
-            }
-
-        }.start();
         markers.add(newEventMarker);
+
     }
 
     @Override
@@ -153,9 +144,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
         TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
         if(curEvent.getRemainTime() == 1){
-            eventDuration.setText(Long.toString(curEvent.getRemainTime()) + " minute left until event finish!");
+            eventDuration.setText(Integer.toString(curEvent.getRemainTime()) + " minute left until event finish!");
         } else {
-            eventDuration.setText(Long.toString(curEvent.getRemainTime()) + " minutes left until event finish!");
+            eventDuration.setText(Integer.toString(curEvent.getRemainTime()) + " minutes left until event finish!");
         }
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
@@ -368,6 +359,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markers.add(siebelM);
         privates.add(siebelM);
 
+
         mMap.setOnMarkerClickListener(this);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(union));
@@ -458,14 +450,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     double lat = data.getDoubleExtra("lat",40.109000);
                     double lng = data.getDoubleExtra("lng", -88.220000);
                     LatLng newEventLocation = new LatLng(lat, lng);
-                    Marker newEventMarker = mMap.addMarker(new MarkerOptions()
+                   final  Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                             .position(newEventLocation)
                     );
 
 //                    Event newEvent = new Event(newEventName);
 //                    Event(String name, int numberOfPeople, String description, int startingHour, int startingMinute, String owner){
 //
-                    Event newEvent = new Event(newEventName, data.getIntExtra("max Size", 2), data.getStringExtra("description"), data.getIntExtra("duration", 1), "tester");
+                    final Event newEvent = new Event(newEventName, data.getIntExtra("max Size", 2), data.getStringExtra("description"), data.getIntExtra("duration", 1), "tester");
                     String[] hashtags = data.getStringArrayExtra("hashtags");
                     for (int i = 0; i < hashtags.length; i ++)
                         newEvent.addHashTag(hashtags[i]);
@@ -475,6 +467,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // hard coded username
                     newEvent.setLocation(new LatLng(lat, lng));
                     newEventMarker.setTag(newEvent);
+                    long eventDuration = TimeUnit.HOURS.toMillis(newEvent.getDuriation());
+
+                    new CountDownTimer(eventDuration, 1000){
+                        public void onTick(long millisUntilFinished) {
+                            newEvent.setRemainTime(millisUntilFinished);
+                        }
+                        public void onFinish() {
+                            newEventMarker.remove();
+                        }
+
+                    }.start();
                     markers.add(newEventMarker);
 
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.lang.Object;
+import java.lang.Math;
 import 	android.os.CountDownTimer;
 
 public class Event {
@@ -50,8 +51,8 @@ public class Event {
     public String getName(){return this.name;}
     public long getDuriation(){ return this.durationHour;}
     public void setRemainTime(long timeInMillis){this.remainTime = timeInMillis;}
-    public long getRemainTime(){
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(this.remainTime);
+    public int getRemainTime(){
+        int minutes = (int)TimeUnit.MILLISECONDS.toMinutes(this.remainTime);
         return minutes;
     }
     public String getDescription(){return this.description;}
