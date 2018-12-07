@@ -73,13 +73,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private RelativeLayout relative;
     private SearchView searchView;
 
-    public void createNewEvent(Event newEvent) {
+    public void createNewEvent(final Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
-        Marker newEventMarker = mMap.addMarker(new MarkerOptions()
+        final Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                 .position(newEventPosition)
                 .title("Marker in friends")
         );
         newEventMarker.setTag(newEvent);
+        long eventDuration = TimeUnit.HOURS.toMillis(newEvent.getDuriation());
+
+        new CountDownTimer(eventDuration, 1000){
+            public void onTick(long millisUntilFinished) {
+                newEvent.setRemainTime(millisUntilFinished);
+            }
+            public void onFinish() {
+                newEventMarker.remove();
+            }
+
+        }.start();
         markers.add(newEventMarker);
     }
 
@@ -141,10 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
         TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
         TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
-        if(curEvent.getDuriation() == 1){
-            eventDuration.setText(Long.toString(curEvent.getDuriation()) + " hour");
+        if(curEvent.getRemainTime() == 1){
+            eventDuration.setText(Long.toString(curEvent.getRemainTime()) + " minute left until event finish!");
         } else {
-            eventDuration.setText(Long.toString(curEvent.getDuriation()) + " hours");
+            eventDuration.setText(Long.toString(curEvent.getRemainTime()) + " minutes left until event finish!");
         }
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
@@ -197,7 +208,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(teamoji)
 
         );
-        Event teamojiEvent = new Event("Chatting");
+        final Event teamojiEvent = new Event("Chatting");
         teamojiEvent.setDescription("Just Chilling, it's at second floor of teamoji");
         teamojiEvent.setNumberOfPeople(3);
         teamojiEvent.addHashTag("Movie");
@@ -206,7 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long teamojiDuration = TimeUnit.HOURS.toMillis(teamojiEvent.getDuriation());
         new CountDownTimer(teamojiDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                teamojiEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -226,7 +237,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Marker ggM = mMap.addMarker(new MarkerOptions()
                                     .position(grainger)
         );
-        Event ggEvent = new Event("CS465 study session");
+        final Event ggEvent = new Event("CS465 study session");
         ggEvent.addHashTag("FreeFood");
         ggEvent.addHashTag("Study");
         ggEvent.setNumberOfPeople(10);
@@ -237,7 +248,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long ggDuration = TimeUnit.HOURS.toMillis(ggEvent.getDuriation());
         new CountDownTimer(ggDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                ggEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -253,7 +264,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Marker unionM = mMap.addMarker(new MarkerOptions()
                         .position(union)
         );
-        Event unionEvent = new Event("CSSA interviews");
+        final Event unionEvent = new Event("CSSA interviews");
         unionEvent.addHashTag("FreeFood");
         unionEvent.addHashTag("professional");
         unionEvent.setNumberOfPeople(50);
@@ -265,7 +276,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long unionDuration = TimeUnit.HOURS.toMillis(unionEvent.getDuriation());
         new CountDownTimer(unionDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                unionEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -280,7 +291,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Marker uglM = mMap.addMarker(new MarkerOptions()
                                     .position(ugl)
         );
-        Event uglEvent = new Event("Review for final&Chilling");
+        final Event uglEvent = new Event("Review for final&Chilling");
         uglEvent.addHashTag("BoardGame");
         uglEvent.addHashTag("Review");
         uglEvent.setDescription("Review for finals, at first floor of UGL.");
@@ -291,7 +302,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long uglDuration = TimeUnit.HOURS.toMillis(uglEvent.getDuriation());
         new CountDownTimer(uglDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                uglEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -303,11 +314,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markers.add(uglM);
         privates.add(uglM);
 
-        LatLng bookstore = new LatLng(40.108534, -88.229278);
+        final LatLng bookstore = new LatLng(40.108534, -88.229278);
         final Marker bookstoreM = mMap.addMarker(new MarkerOptions()
                         .position(bookstore)
         );
-        Event bookstoreEvent = new Event("Starbucks");
+        final Event bookstoreEvent = new Event("Starbucks");
         bookstoreEvent.addHashTag("BoardGame");
         bookstoreEvent.addHashTag("Coffee");
         bookstoreEvent.setNumberOfPeople(8);
@@ -318,7 +329,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long bookstoreDuration = TimeUnit.HOURS.toMillis(bookstoreEvent.getDuriation());
         new CountDownTimer(bookstoreDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                bookstoreEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
@@ -335,7 +346,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         .position(siebel)
 //                                        .title("Marker in private")
         );
-        Event siebelEvent = new Event("CS461 mp4");
+        final Event siebelEvent = new Event("CS461 mp4");
         siebelEvent.addHashTag("Dinner");
         siebelEvent.setNumberOfPeople(3);
         siebelEvent.setDescription("Do mps, it is at basement of siebel");
@@ -346,7 +357,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         long siebelDuration = TimeUnit.HOURS.toMillis(siebelEvent.getDuriation());
         new CountDownTimer(siebelDuration, 1000){
             public void onTick(long millisUntilFinished) {
-
+                siebelEvent.setRemainTime(millisUntilFinished);
             }
 
             public void onFinish() {
