@@ -22,7 +22,7 @@ public class Event {
     private String owner;
     private LatLng location;
 
-    Event(String name, int numberOfPeople, String description, int startingHour, int startingMinute, String owner){
+    Event(String name, int numberOfPeople, String description, int durationHour, String owner){
         this.name = name;
         this.numberOfPeople = numberOfPeople;
         this.interetedEvent = false;
@@ -31,6 +31,7 @@ public class Event {
         this.description = description;
         this.owner = owner;
         this.location = null;
+        this.durationHour = durationHour;
     }
 
     Event(String name){
@@ -56,13 +57,13 @@ public class Event {
     public void setPrivateEvent(boolean bool) {this.privateEvent = bool;}
 
     public void addHashTag(String hashtag){
-        if (!hashtags.contains(hashtag)){
-            hashtags.add(hashtag);
+        if (!hashtags.contains(hashtag.toLowerCase())){
+            hashtags.add(hashtag.toLowerCase());
         }
     }
     public boolean hasHashTag(String hashtag) {
         for (String curHashTag : hashtags)
-            if (curHashTag.equals(hashtag))
+            if (curHashTag.equals(hashtag.toLowerCase()))
                 return true;
         return false;
     }

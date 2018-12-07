@@ -62,7 +62,14 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
                 return;
             }
 
-            int maxSize = (int)((Spinner)findViewById(R.id.size_spinner)).getSelectedItem();
+//            int maxSize = (Integer) ((Spinner)findViewById(R.id.size_spinner)).getSelectedItem();
+//            int eventDuration = (Integer) ((Spinner)findViewById(R.id.duration_spinner)).getSelectedItem();
+
+            int maxSize = Integer.parseInt(((Spinner)findViewById(R.id.size_spinner)).getSelectedItem().toString());
+            int eventDuration = Integer.parseInt(((Spinner)findViewById(R.id.duration_spinner)).getSelectedItem().toString());
+
+//            int maxSize = 2;
+//            int eventDuration = 3;
 
             List<Address> addressList;
             try {
@@ -79,6 +86,13 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
             }
 
             String hashtags = ((EditText)findViewById(R.id.hashtags)).getText().toString();
+            String [] hashtagList = hashtags.split(";");
+            if (hashtagList.length == 0 && !hashtags.equals("")){
+                hashtagList = new String[]{ hashtags };
+            } else if (hashtagList.length == 0 && hashtags.equals("")){
+                hashtagList = new String[]{};
+            }
+
 
             Intent output = new Intent();
             output.putExtra("name", ((EditText)findViewById(R.id.event_name)).getText().toString());
@@ -87,8 +101,9 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
             output.putExtra("lat", addressList.get(0).getLatitude());
             output.putExtra("lng", addressList.get(0).getLongitude());
             output.putExtra("max Size", maxSize);
-            output.putExtra("hashtags", (hashtags.split(";")));
+            output.putExtra("hashtags", (hashtagList));
             output.putExtra("description", ((EditText)findViewById(R.id.description)).getText().toString());
+            output.putExtra("duration", eventDuration);
             setResult(RESULT_OK, output);
             this.finish();
         }
