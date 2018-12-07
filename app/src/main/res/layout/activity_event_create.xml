@@ -79,7 +79,7 @@
                 android:layout_marginStart="5dp"
                 android:paddingTop="10dp"
                 android:textSize="18sp"
-                android:text="Hashtags"/>
+                android:text="Hashtags (separated by ;)"/>
 
             <EditText
                 android:id="@+id/hashtags"

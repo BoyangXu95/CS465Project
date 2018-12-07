@@ -444,14 +444,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     LatLng newEventLocation = new LatLng(lat, lng);
                     Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                             .position(newEventLocation)
-//                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                     );
-                    Event newEvent = new Event(newEventName);
+
+//                    Event newEvent = new Event(newEventName);
+//                    Event(String name, int numberOfPeople, String description, int startingHour, int startingMinute, String owner){
+//
+                    Event newEvent = new Event(newEventName, data.getIntExtra("max Size", 2), data.getStringExtra("description"), data.getIntExtra("duration", 1), "tester");
+                    String[] hashtags = data.getStringArrayExtra("hashtags");
+                    for (int i = 0; i < hashtags.length; i ++)
+                        newEvent.addHashTag(hashtags[i]);
                     newEvent.setPrivateEvent(data.getBooleanExtra("private", false));
                     if (data.getBooleanExtra("private", false))
                         privates.add(newEventMarker);
                     // hard coded username
-                    newEvent.setOwner("tester");
                     newEventMarker.setTag(newEvent);
                     markers.add(newEventMarker);
                 }
