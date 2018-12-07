@@ -3,227 +3,227 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/relative">
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsActivity" />
+        android:id="@+id/relative">
 
-    <ImageButton
-        android:layout_marginTop="15dp"
-        android:id="@+id/hamburger"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:src="@drawable/hamburger"
-        android:background="@null"
-        />
-
-    <SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignTop="@id/hamburger"
-        android:layout_toRightOf="@id/hamburger"
-        android:layout_toLeftOf="@id/add"
-        android:background="@android:color/white"/>
-    <ImageButton
-        android:id="@+id/add"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/hamburger"
-        android:src="@drawable/ic_baseline_add_circle_24px"
-        android:background="@null"/>
-    <ImageButton
-        android:id="@+id/current_location"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/baseline_my_location_black_24dp"
-        android:background="@null"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!--This empty TextView holds the place of part of the screen-->
-        <TextView
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            tools:context=".MapsActivity" />
 
-        <SlidingDrawer
-            android:id="@+id/drawer"
+        <ImageButton
+            android:layout_marginTop="15dp"
+            android:id="@+id/hamburger"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/hamburger"
+            android:background="@null"
+            />
+
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignTop="@id/hamburger"
+            android:layout_toRightOf="@id/hamburger"
+            android:layout_toLeftOf="@id/add"
+            android:background="@android:color/white"/>
+        <ImageButton
+            android:id="@+id/add"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/hamburger"
+            android:src="@drawable/ic_baseline_add_circle_24px"
+            android:background="@null"/>
+        <ImageButton
+            android:id="@+id/current_location"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/baseline_my_location_black_24dp"
+            android:background="@null"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:orientation="vertical">
 
-            android:handle="@+id/handle"
-            android:content="@+id/content">
-
-            <ImageView
-                android:id="@id/handle"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_baseline_drag_handle_24px"/>
-
-            <LinearLayout
-                android:id="@id/content"
+            <!--This empty TextView holds the place of part of the screen-->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:background="@android:color/white">
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <SlidingDrawer
+                android:id="@+id/drawer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+
+                android:handle="@+id/handle"
+                android:content="@+id/content">
+
+                <ImageView
+                    android:id="@id/handle"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_baseline_drag_handle_24px"/>
 
                 <LinearLayout
+                    android:id="@id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="5dp">
-
-                    <CheckBox
-                        android:id="@+id/checkbox_friends"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:text="Friends going"
-                        android:textColor="@android:color/darker_gray"
-                        android:onClick="onCheckboxClicked"/>
-
-                    <CheckBox
-                        android:id="@+id/checkbox_interested"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="Liked"
-                        android:textColor="@android:color/darker_gray"
-                        android:onClick="onCheckboxClicked"/>
-
-                    <CheckBox
-                        android:id="@+id/checkbox_private"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:text="Private"
-                        android:textColor="@android:color/darker_gray"
-                        android:onClick="onCheckboxClicked"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"/>
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:background="@android:color/white">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_marginTop="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="horizontal"
-                            android:layout_weight="1">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="5dp">
 
-                            <Button
-                                android:id="@+id/movie"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Movie"
-                                android:onClick="onHashTagClicked"/>
+                        <CheckBox
+                            android:id="@+id/checkbox_friends"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="Friends going"
+                            android:textColor="@android:color/darker_gray"
+                            android:onClick="onCheckboxClicked"/>
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="FreeFood"
-                                android:onClick="onHashTagClicked"/>
+                        <CheckBox
+                            android:id="@+id/checkbox_interested"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Liked"
+                            android:textColor="@android:color/darker_gray"
+                            android:onClick="onCheckboxClicked"/>
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="Gym"
-                                android:onClick="onHashTagClicked"/>
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"
-                                android:onClick="onHashTagClicked"/>
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"
-                                android:onClick="onHashTagClicked"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:orientation="horizontal"
-                            android:layout_weight="1">
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="BoardGame"
-                                android:onClick="onHashTagClicked"/>
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="Dinner"
-                                android:onClick="onHashTagClicked"/>
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="ALargeAndLengthyPlaceHolder"
-                                android:onClick="onHashTagClicked"/>
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"
-                                android:onClick="onHashTagClicked"/>
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="PlaceHolder"
-                                android:onClick="onHashTagClicked"/>
-                        </LinearLayout>
+                        <CheckBox
+                            android:id="@+id/checkbox_private"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Private"
+                            android:textColor="@android:color/darker_gray"
+                            android:onClick="onCheckboxClicked"/>
                     </LinearLayout>
-                </HorizontalScrollView>
-            </LinearLayout>
-        </SlidingDrawer>
-    </LinearLayout>
-</RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_marginTop="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="horizontal"
+                                android:layout_weight="1">
+
+                                <Button
+                                    android:id="@+id/movie"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Movie"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="FreeFood"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="Gym"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="PlaceHolder"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="PlaceHolder"
+                                    android:onClick="onHashTagClicked"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="horizontal"
+                                android:layout_weight="1">
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="BoardGame"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="Dinner"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="ALargeAndLengthyPlaceHolder"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="PlaceHolder"
+                                    android:onClick="onHashTagClicked"/>
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="PlaceHolder"
+                                    android:onClick="onHashTagClicked"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
+            </SlidingDrawer>
+        </LinearLayout>
+    </RelativeLayout>
     <ListView
         android:id="@+id/drawerlist"
         android:clickable="true"
