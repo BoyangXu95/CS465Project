@@ -104,6 +104,22 @@
             android:textColor="@android:color/black"
             android:paddingLeft="20dp"
             android:textStyle="bold"
+            android:text="Address:"
+            />
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textColor="@android:color/black"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/black"
+            android:paddingLeft="20dp"
+            android:textStyle="bold"
             android:text="Description"
             />
         <TextView

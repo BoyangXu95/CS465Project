@@ -136,13 +136,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
 
 
-        popupWindow = new PopupWindow(container, 1000, 1000, true);
+        popupWindow = new PopupWindow(container, 1000, 1500, true);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
         TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
         TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
         TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
         TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
+        TextView eventAddress = (TextView) popupWindow.getContentView().findViewById(R.id.address);
         if(curEvent.getRemainTime() == 1){
             eventDuration.setText(Integer.toString(curEvent.getRemainTime()) + " minute left until event finish!");
         } else {
@@ -157,6 +158,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         eventName.setText(curEvent.getName());
         eventPeople.setText(curEvent.getNumberOfPeople()+" people");
+        eventAddress.setText(curEvent.getAddress());
         eventDescription.setText(curEvent.getDescription());
         List<String> curHashTags = curEvent.getHashtags();
         String hashtags="";
@@ -221,6 +223,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 teamojiM.remove();
             }
         }.start();
+        teamojiEvent.setAddress("617 E Green St, Champaign, IL 61820");
         teamojiEvent.setLocation(teamoji);
         teamojiM.setTag(teamojiEvent);
 
@@ -241,6 +244,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ggEvent.setLocation(grainger);
         ggEvent.setDescription("Study for CS465 final exam, fourth floor");
         ggEvent.setDuration(2);
+        ggEvent.setAddress("1301 W Springfield Ave, Urbana, IL 61801");
         long ggDuration = TimeUnit.HOURS.toMillis(ggEvent.getDuriation());
         new CountDownTimer(ggDuration, 1000){
             public void onTick(long millisUntilFinished) {
@@ -276,6 +280,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         unionEvent.setDescription("Interviews, It is at basement of union");
         unionM.setTag(unionEvent);
         unionEvent.setDuration(2);
+        unionEvent.setAddress("1401 W Green St, Urbana, IL 61801");
         long unionDuration = TimeUnit.HOURS.toMillis(unionEvent.getDuriation());
         new CountDownTimer(unionDuration, 1000){
             public void onTick(long millisUntilFinished) {
@@ -309,6 +314,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         uglEvent.setPrivateEvent(true);
         uglEvent.setLocation(ugl);
         uglEvent.setDuration(4);
+        uglEvent.setAddress("1402 W Gregory Dr, Urbana, IL 61801");
         long uglDuration = TimeUnit.HOURS.toMillis(uglEvent.getDuriation());
         new CountDownTimer(uglDuration, 1000){
             public void onTick(long millisUntilFinished) {
@@ -343,6 +349,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bookstoreEvent.setLocation(bookstore);
         bookstoreEvent.setDescription("Drink coffee, It's at the coner of the startbucks");
         bookstoreEvent.setDuration(3);
+        bookstoreEvent.setAddress("809 S Wright St, Champaign, IL 61820");
         long bookstoreDuration = TimeUnit.HOURS.toMillis(bookstoreEvent.getDuriation());
         new CountDownTimer(bookstoreDuration, 1000){
             public void onTick(long millisUntilFinished) {
@@ -378,6 +385,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         siebelEvent.setLocation(siebel);
         siebelM.setTag(siebelEvent);
         siebelEvent.setDuration(5);
+        siebelEvent.setAddress("201 N Goodwin Ave, Urbana, IL 61801");
         long siebelDuration = TimeUnit.HOURS.toMillis(siebelEvent.getDuriation());
         new CountDownTimer(siebelDuration, 1000){
             public void onTick(long millisUntilFinished) {
@@ -490,6 +498,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     String newEventName = data.getStringExtra("name");
                     double lat = data.getDoubleExtra("lat",40.109000);
                     double lng = data.getDoubleExtra("lng", -88.220000);
+                    String address = data.getStringExtra("address");
                     LatLng newEventLocation = new LatLng(lat, lng);
                     final Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                             .position(newEventLocation)
@@ -499,6 +508,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    Event(String name, int numberOfPeople, String description, int startingHour, int startingMinute, String owner){
 //
                     final Event newEvent = new Event(newEventName, data.getIntExtra("max Size", 2), data.getStringExtra("description"), data.getIntExtra("duration", 1), "tester");
+                    newEvent.setAddress(address);
                     String[] hashtags = data.getStringArrayExtra("hashtags");
                     for (int i = 0; i < hashtags.length; i ++)
                         newEvent.addHashTag(hashtags[i]);
@@ -577,7 +587,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void searchEvent(String query){
         LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
-        //final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+        //final PopupWindow popupWindow = new PopupWindow(container, 1000, 1500, true);
         int eventIndex = 0;
 
         for (int i = 0; i < markers.size(); i++){
@@ -586,13 +596,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
 
                 Event curEvent = (Event) markers.get(i).getTag();
-                popupWindow = new PopupWindow(container, 1000, 1000, true);
+                popupWindow = new PopupWindow(container, 1000, 1500, true);
                 popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
                 TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
                 TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
                 TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
                 TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
                 TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
+                TextView eventAddress = (TextView) popupWindow.getContentView().findViewById(R.id.address);
                 eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()) + "hours");
                 interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
                 interestedButton.setOnClickListener(this);
@@ -604,6 +615,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 eventName.setText(curEvent.getName());
                 eventPeople.setText("Number of People: "+curEvent.getNumberOfPeople()+" people");
                 eventDescription.setText("Description: "+curEvent.getDescription());
+                eventAddress.setText(curEvent.getAddress());
                 List<String> curHashTags = curEvent.getHashtags();
                 String hashtags="";
                 for(int tmp = 0; tmp <curHashTags.size(); tmp++){
