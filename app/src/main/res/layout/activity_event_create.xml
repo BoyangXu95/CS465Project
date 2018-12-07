@@ -143,7 +143,7 @@
                     android:layout_marginStart="5dp"
                     android:gravity="center_vertical"
                     android:textSize="18sp"
-                    android:text="Duration"/>
+                    android:text="Duration (hour)"/>
 
                 <Spinner
                     android:id="@+id/duration_spinner"
