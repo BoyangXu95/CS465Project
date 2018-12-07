@@ -133,6 +133,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
 
+
         popupWindow = new PopupWindow(container, 1000, 1000, true);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
@@ -143,6 +144,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()) + "hours");
         interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
         interestedButton.setOnClickListener(this);
+
+        if (curEvent.isInterested()){
+            interestedButton.setText("Unlike");
+        }
 
         eventName.setText(curEvent.getName());
         eventPeople.setText("Number of People: "+curEvent.getNumberOfPeople()+" people");
@@ -453,8 +458,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (data.getBooleanExtra("private", false))
                         privates.add(newEventMarker);
                     // hard coded username
+                    newEvent.setLocation(new LatLng(lat, lng));
                     newEventMarker.setTag(newEvent);
                     markers.add(newEventMarker);
+
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
+
                 }
             }
         }
@@ -472,21 +481,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             drawer.openDrawer(Gravity.START);
         }
         else if (v.getId() == R.id.interested_button){
-            Context context = getApplicationContext();
-            CharSequence text = "Event liked";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
 
             Event curEvent = (Event)curMarker.getTag();
             boolean intereted = (curEvent.isInterested());
             curEvent.setInteretedEvent(!intereted);
 
+            Context context = getApplicationContext();
+
+            CharSequence text;
+
+            interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
+
             if (curEvent.isInterested()){
                 interests.add(curMarker);
+                text = "Event liked!";
+                interestedButton.setText("UNLIKE");
             } else {
                 interests.remove(curMarker);
+                text = "Event unliked!";
+                interestedButton.setText("LIKE");
             }
+
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
             filterChanged();
         }
     }
@@ -494,16 +512,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void searchEvent(String query){
         LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
-        final PopupWindow popupWindow = new PopupWindow(container, 400, 1000, true);
-        TextView text = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+        //final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
         int eventIndex = 0;
 
         for (int i = 0; i < markers.size(); i++){
-            if (((Event) markers.get(i).getTag()).getName().equals(query)){
+            if (((Event) markers.get(i).getTag()).getName().toLowerCase().contains(query.toLowerCase())){
                 eventIndex = i;
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
-                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
-                text.setText(query);
+////                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, Resources.getSystem().getDisplayMetrics().widthPixels / 2 - 200 , Resources.getSystem().getDisplayMetrics().heightPixels / 2 - 200);
+//                popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+////                text.setText(query);
+//                container.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View view, MotionEvent motionEvent) {
+//                        popupWindow.dismiss();
+//                        return true;
+//                    }
+//                });
+//                return;
+                Event curEvent = (Event) markers.get(i).getTag();
+                popupWindow = new PopupWindow(container, 1000, 1000, true);
+                popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+                TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+                TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
+                TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
+                TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
+                TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
+                eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()) + "hours");
+                interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
+                interestedButton.setOnClickListener(this);
+
+                if (curEvent.isInterested()){
+                    interestedButton.setText("Unlike");
+                }
+
+                eventName.setText(curEvent.getName());
+                eventPeople.setText("Number of People: "+curEvent.getNumberOfPeople()+" people");
+                eventDescription.setText("Description: "+curEvent.getDescription());
+                List<String> curHashTags = curEvent.getHashtags();
+                String hashtags="";
+                for(int tmp = 0; tmp <curHashTags.size(); tmp++){
+                    String temp = "#";
+                    temp = temp + curHashTags.get(tmp)+ " ";
+                    hashtags+=temp;
+                }
+                eventHashtags.setText("Hashtags: " + hashtags);
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
