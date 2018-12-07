@@ -435,7 +435,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             case (0) : {
                 if (resultCode == Activity.RESULT_OK) {
                     String newEventName = data.getStringExtra("name");
-                    LatLng newEventLocation = new LatLng(40.109000, -88.220000);
+                    double lat = data.getDoubleExtra("lat",40.109000);
+                    double lng = data.getDoubleExtra("lng", -88.220000);
+                    LatLng newEventLocation = new LatLng(lat, lng);
                     Marker newEventMarker = mMap.addMarker(new MarkerOptions()
                             .position(newEventLocation)
 //                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
