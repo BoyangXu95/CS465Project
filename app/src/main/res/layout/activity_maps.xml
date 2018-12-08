@@ -32,16 +32,9 @@
             android:layout_height="45dp"
             android:layout_alignTop="@id/hamburger"
             android:layout_toRightOf="@id/hamburger"
-            android:layout_toLeftOf="@id/add"
+            android:layout_marginRight="15dp"
             android:background="@android:color/white"/>
-        <ImageButton
-            android:id="@+id/add"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/hamburger"
-            android:src="@drawable/ic_baseline_add_circle_24px"
-            android:background="@null"/>
+
         <ImageButton
             android:id="@+id/current_location"
             android:layout_width="45dp"
@@ -56,10 +49,21 @@
             android:orientation="vertical">
 
             <!--This empty TextView holds the place of part of the screen-->
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1">
+                <ImageButton
+                    android:id="@+id/add"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/bigger_add"
+                    android:background="@null"/>
+            </RelativeLayout>
 
             <SlidingDrawer
                 android:id="@+id/drawer"
