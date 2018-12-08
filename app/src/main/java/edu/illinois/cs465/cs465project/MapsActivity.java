@@ -154,7 +154,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
                         TextView liked_list = (TextView) popupWindow.getContentView().findViewById(R.id.liked_list);
-                        String liked_events = "";
+                        String liked_events = "\n";
                         for(int idx = 0; idx < interests.size(); idx++){
                             liked_events += ((Event) interests.get(idx).getTag()).getName() + "\n";
                             if (idx != interests.size()-1) {
@@ -162,9 +162,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
                         }
                         liked_list.setText(liked_events);
-                        
-                        //TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.liked);
-                        //eventName.setText('t');
                     }
                 }
                 if (position == 3){
