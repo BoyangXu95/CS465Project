@@ -172,6 +172,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
                         }
                         liked_list.setText(liked_events);
+
+                        container.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View view, MotionEvent motionEvent) {
+                                popupWindow.dismiss();
+                                return true;
+                            }
+                        });
                     }
                 }
                 if (position == 3){  // Friends
