@@ -24,6 +24,7 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
 
     private ImageButton back;
     private Button createEventButton;
+    private Button createTopRight;
     private Geocoder geocoder;
 
     @Override
@@ -38,6 +39,8 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
 
         createEventButton = findViewById(R.id.create_event);
         createEventButton.setOnClickListener(this);
+        createTopRight = findViewById(R.id.create_top_right);
+        createTopRight.setOnClickListener(this);
 
     }
     public void onClick(View v) {
@@ -45,7 +48,7 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
             this.finish();
         }
 
-        if (v.getId() == R.id.create_event){
+        if (v.getId() == R.id.create_event || v.getId() == R.id.create_top_right){
             String eventName = ((EditText)findViewById(R.id.event_name)).getText().toString();
             if (eventName.equals("")){
                 int duration = Toast.LENGTH_SHORT;
@@ -57,7 +60,7 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
             String locationName = ((EditText)findViewById(R.id.address_input)).getText().toString();
             if(locationName.equals("")){
                 int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(this, "location required", duration);
+                Toast toast = Toast.makeText(this, "address required", duration);
                 toast.show();
                 return;
             }
@@ -80,7 +83,7 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
 
             if (addressList.isEmpty()){
                 int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(this, "location invalid", duration);
+                Toast toast = Toast.makeText(this, "invalid address", duration);
                 toast.show();
                 return;
             }
