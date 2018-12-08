@@ -58,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     List <Marker> privates = new ArrayList<>();
     List <Marker> interests = new ArrayList<>();
 
-    private String myEventName;
+    static public String myEventName;
     private ImageButton menu;
     private DrawerLayout drawer;
     private ImageButton current_location;
@@ -88,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .title("Marker in friends")
         );
         newEventMarker.setTag(newEvent);
-
+        myEventName = newEvent.getName();
         markers.add(newEventMarker);
 
     }
@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         relativeLayout = (RelativeLayout) findViewById(R.id.relative);
@@ -145,7 +145,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 if (position == 1){
-
+                    if (myEventName != null){
+                        searchEvent(myEventName);
+                        drawer.closeDrawers();
+                    }
+                    else{
+                        Toast.makeText(MapsActivity.this, "You have not created any event", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 if (position == 2){  // Liked Events
                     if (interests.size() == 0){  // when list is empty

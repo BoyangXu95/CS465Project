@@ -95,7 +95,7 @@ public class EventCreateActivity extends Activity implements View.OnClickListene
             } else if (hashtagList.length == 0 && hashtags.equals("")){
                 hashtagList = new String[]{};
             }
-
+            MapsActivity.myEventName = eventName;
 
             Intent output = new Intent();
             output.putExtra("name", ((EditText)findViewById(R.id.event_name)).getText().toString());
