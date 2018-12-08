@@ -657,6 +657,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int eventIndex = 0;
 
         for (int i = 0; i < markers.size(); i++){
+            if (((Event) markers.get(i).getTag()).getName().toLowerCase().equals(query.toLowerCase())){
+                eventIndex = i;
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
+
+                Event curEvent = (Event) markers.get(i).getTag();
+                popupWindow = new PopupWindow(container, 1000, 1500, true);
+                popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+                TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
+                TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
+                TextView eventPeople = (TextView) popupWindow.getContentView().findViewById(R.id.people);
+                TextView eventHashtags = (TextView) popupWindow.getContentView().findViewById(R.id.hashtags);
+                TextView eventDuration = (TextView) popupWindow.getContentView().findViewById(R.id.duration);
+                TextView eventAddress = (TextView) popupWindow.getContentView().findViewById(R.id.address);
+                eventDuration.setText("Duration: "+Long.toString(curEvent.getDuriation()) + "hours");
+                interestedButton = popupWindow.getContentView().findViewById(R.id.interested_button);
+                interestedButton.setOnClickListener(this);
+
+                if (curEvent.isInterested()){
+                    interestedButton.setText("Unlike");
+                }
+
+                eventName.setText(curEvent.getName());
+                eventPeople.setText("Number of People: "+curEvent.getNumberOfPeople()+" people");
+                eventDescription.setText("Description: "+curEvent.getDescription());
+                eventAddress.setText(curEvent.getAddress());
+                List<String> curHashTags = curEvent.getHashtags();
+                String hashtags="";
+                for(int tmp = 0; tmp <curHashTags.size(); tmp++){
+                    String temp = "#";
+                    temp = temp + curHashTags.get(tmp)+ " ";
+                    hashtags+=temp;
+                }
+                eventHashtags.setText("Hashtags: " + hashtags);
+                container.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+                return;
+            }
+        }
+        for (int i = 0; i < markers.size(); i++){
             if (((Event) markers.get(i).getTag()).getName().toLowerCase().contains(query.toLowerCase())){
                 eventIndex = i;
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
