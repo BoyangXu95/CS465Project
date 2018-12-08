@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -25,6 +27,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -53,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     List <Marker> friends = new ArrayList<>();
     List <Marker> privates = new ArrayList<>();
     List <Marker> interests = new ArrayList<>();
+
+    private Event myEvent;
     private ImageButton menu;
     private DrawerLayout drawer;
     private ImageButton current_location;
@@ -72,6 +77,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private RelativeLayout relative;
     private SearchView searchView;
+
+    private ListView listview;
 
     public void createNewEvent( final Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
@@ -104,6 +111,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         current_location = (ImageButton) findViewById(R.id.current_location);
         current_location.setOnClickListener(this);
 
+
         searchView = (SearchView) findViewById(R.id.search);
         searchView.setQueryHint("Search nearby events");
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +131,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onQueryTextChange(String newText) {
                 // TODO
                 return false;
+            }
+        });
+
+        listview = (ListView) findViewById(R.id.drawerlist);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0){  // User Info
+                    Toast.makeText(MapsActivity.this, "Logged in as:\n" +
+                            "Captain America\n" +
+                            "DChaters@illinois.edu", Toast.LENGTH_SHORT).show();
+                }
+                if (position == 2){  // Liked Events
+                    if (interests.size() == 0){  // when list is empty
+                        Toast.makeText(MapsActivity.this, "You have not liked_events any event", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.interested_event, null);
+                        popupWindow = new PopupWindow(container, 1000, 1000, true);
+                        popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+                    }
+                }
+                if (position == 3){
+                    Toast.makeText(MapsActivity.this, "You have no friends :(", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
