@@ -608,6 +608,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onClick(View v) {
         if (v.getId() == R.id.add) {
+            if (myEventName != null){
+                Toast.makeText(this, "Your have already created an event! Please check \"My Event\"", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent intent = new Intent(this, EventCreateActivity.class);
             startActivityForResult(intent, 0);
         }
