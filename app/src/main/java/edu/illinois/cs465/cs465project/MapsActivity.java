@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -112,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         current_location.setOnClickListener(this);
 
 
-        searchView = (SearchView) findViewById(R.id.search);
+                searchView = (SearchView) findViewById(R.id.search);
         searchView.setQueryHint("Search nearby events");
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +130,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // TODO
                 return false;
             }
         });
@@ -152,6 +152,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.interested_event, null);
                         popupWindow = new PopupWindow(container, 1000, 1000, true);
                         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+                        TextView liked_list = (TextView) popupWindow.getContentView().findViewById(R.id.liked_list);
+                        String liked_events = "";
+                        for(int idx = 0; idx < interests.size(); idx++){
+                            liked_events += ((Event) interests.get(idx).getTag()).getName() + "\n";
+                            if (idx != interests.size()-1) {
+                                liked_events += "\n";
+                            }
+                        }
+                        liked_list.setText(liked_events);
+                        
+                        //TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.liked);
+                        //eventName.setText('t');
                     }
                 }
                 if (position == 3){
