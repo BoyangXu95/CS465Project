@@ -58,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     List <Marker> privates = new ArrayList<>();
     List <Marker> interests = new ArrayList<>();
 
-    private Event myEvent;
+    private String myEventName;
     private ImageButton menu;
     private DrawerLayout drawer;
     private ImageButton current_location;
@@ -113,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         current_location.setOnClickListener(this);
 
 
-                searchView = (SearchView) findViewById(R.id.search);
+        searchView = (SearchView) findViewById(R.id.search);
         searchView.setQueryHint("Search nearby events");
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +143,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             "Captain America\n" +
                             "DChaters@illinois.edu", Toast.LENGTH_SHORT).show();
                 }
+
+                if (position == 1){
+
+                }
                 if (position == 2){  // Liked Events
                     if (interests.size() == 0){  // when list is empty
                         Toast.makeText(MapsActivity.this, "You have not liked_events any event", Toast.LENGTH_SHORT).show();
@@ -164,7 +168,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         liked_list.setText(liked_events);
                     }
                 }
-                if (position == 3){
+                if (position == 3){  // Friends
                     Toast.makeText(MapsActivity.this, "You have no friends :(", Toast.LENGTH_SHORT).show();
                 }
             }
