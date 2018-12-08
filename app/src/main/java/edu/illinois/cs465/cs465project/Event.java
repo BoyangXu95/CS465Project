@@ -23,6 +23,7 @@ public class Event {
     private String owner;
     private LatLng location;
     private Long remainTime;
+    private String address;
     Event(String name, int numberOfPeople, String description, int durationHour, String owner){
         this.name = name;
         this.numberOfPeople = numberOfPeople;
@@ -33,7 +34,6 @@ public class Event {
         this.owner = owner;
         this.location = null;
         this.durationHour = durationHour;
-
     }
 
     Event(String name){
@@ -99,4 +99,7 @@ public class Event {
 
     public void setOwner(String user) { this.owner = user; }
 
+    public String getAddress(){ return this.address; }
+
+    public void setAddress(String addr) { this.address = addr; }
 }
