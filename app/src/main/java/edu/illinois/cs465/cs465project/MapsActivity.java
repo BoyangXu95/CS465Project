@@ -165,9 +165,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Toast.makeText(MapsActivity.this, "You have not liked_events any event", Toast.LENGTH_SHORT).show();
                     }
                     else {
+                        DisplayMetrics displayMetrics = new DisplayMetrics();
+                        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                        int width = displayMetrics.widthPixels;
                         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.interested_event, null);
-                        popupWindow = new PopupWindow(container, 1000, 1000, true);
+                        popupWindow = new PopupWindow(container, width*2/3, ViewGroup.LayoutParams.WRAP_CONTENT, true);
                         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
                         TextView liked_list = (TextView) popupWindow.getContentView().findViewById(R.id.liked_list);
@@ -224,11 +227,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         Event curEvent = (Event) marker.getTag();
         curMarker = marker;
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int height = displayMetrics.heightPixels;
+//        int width = displayMetrics.widthPixels;
 
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.event_popup, null);
 
-
-        popupWindow = new PopupWindow(container, 1000, 1500, true);
+        popupWindow = new PopupWindow(container,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
         TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
         TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
@@ -692,7 +698,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
 
                 Event curEvent = (Event) markers.get(i).getTag();
-                popupWindow = new PopupWindow(container, 1000, 1500, true);
+                popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
                 popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
                 TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
                 TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
@@ -736,7 +742,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((((Event) markers.get(eventIndex).getTag()).getLocation()), 15.0f));
 
                 Event curEvent = (Event) markers.get(i).getTag();
-                popupWindow = new PopupWindow(container, 1000, 1500, true);
+                popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
                 popupWindow.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
                 TextView eventName = (TextView) popupWindow.getContentView().findViewById(R.id.popup);
                 TextView eventDescription = (TextView) popupWindow.getContentView().findViewById(R.id.description);
