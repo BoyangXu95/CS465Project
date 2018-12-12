@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.lang.Object;
 
+import android.content.res.Configuration;
 import 	android.os.CountDownTimer;
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,6 +14,8 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -81,6 +84,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private ListView listview;
 
+    private RelativeLayout rl;
+
     public void createNewEvent( final Event newEvent) {
         LatLng newEventPosition = new LatLng(40.110090, -88.229600);
         final Marker newEventMarker = mMap.addMarker(new MarkerOptions()
@@ -100,6 +105,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
+
         mapFragment.getMapAsync(this);
         relativeLayout = (RelativeLayout) findViewById(R.id.relative);
 
@@ -187,6 +194,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            rl = (RelativeLayout) findViewById(R.id.rl);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    0,
+                    1.0f
+            );
+            rl.setLayoutParams(params);
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            rl = (RelativeLayout) findViewById(R.id.rl);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    0,
+                    2.0f
+            );
+            rl.setLayoutParams(params);
+        }
     }
 
 
